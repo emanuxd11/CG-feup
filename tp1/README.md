@@ -11,5 +11,5 @@
 
 ![Screenshot 1](screenshots/cg-t01g09-tp1-1.png)
 **Figure 1: MyTriangleBig**
-![Screenshot 2 (extra for small triangle)](screenshots/for_readme_small_triangle_only)
+![Screenshot 2 (extra for small triangle)](screenshots/for_readme_small_triangle_only.png)
 **Figure 2: MyTriangleSmall**
