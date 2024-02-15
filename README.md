@@ -1,10 +1,10 @@
 # CG 2023/2024
 
-## Group T0xG0y
+## Group T01G09
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
-| John Doe         | 201901010 | ...                |
-| Jane Doe         | 201901011 | ...                |
+| Emanuel Rui Tavano Maia | 202107486 | up202107486@up.pt |
+| António Lino dos Santos | 201705558 | up201705558@up.pt  |
 
 ----
 
