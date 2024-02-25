@@ -1,4 +1,5 @@
 import {CGFobject} from '../lib/CGF.js';
+
 /**
  * MyDiamond
  * @constructor
@@ -29,7 +30,7 @@ export class MyDiamond extends CGFobject {
 		this.primitiveType = this.scene.gl.TRIANGLES;
 
     // Disable backface culling
-    this.scene.gl.disable(this.scene.gl.CULL_FACE);
+    // this.scene.gl.disable(this.scene.gl.CULL_FACE);
 
 		this.initGLBuffers();
 	}
