@@ -43,21 +43,27 @@ export class MyTangram extends CGFobject {
     this.scene.pushMatrix();
     this.scene.multMatrix(transfMatrix);
     this.scene.multMatrix(rotationMatrix);
+    this.scene.setAmbient(0, 255 / 255, 0, 1.0);
     this.scene.setDiffuse(0, 255 / 255, 0, 1.0);
+    this.scene.setSpecular(0, 255 / 255, 0, 1.0);
     this.diamond.display();
     this.scene.popMatrix();
     
     // center triangle
     this.scene.pushMatrix();
     this.scene.rotate(45 * Math.PI / 180, 0, 0, 1);
+    this.scene.setAmbient(255 / 255, 153 / 255, 204 / 255, 1.0);
     this.scene.setDiffuse(255 / 255, 153 / 255, 204 / 255, 1.0);
+    this.scene.setSpecular(255 / 255, 153 / 255, 204 / 255, 1.0);
     this.triangle.display();
     this.scene.popMatrix();
     
     // big triangle on the right
     this.scene.pushMatrix();
     this.scene.translate(2.000, -1.415, 0);
+    this.scene.setAmbient(0.2, 0.4, 0.8, 1.0);
     this.scene.setDiffuse(0.2, 0.4, 0.8, 1.0);
+    this.scene.setSpecular(0.2, 0.4, 0.8, 1.0);
     this.triangleBig.display();
     this.scene.popMatrix();
 
@@ -65,7 +71,9 @@ export class MyTangram extends CGFobject {
     this.scene.pushMatrix();
     this.scene.translate(2.585, 0, 0);
     this.scene.scale(1, -1, 1);
-    this.scene.setDiffuse(255, 255, 0, 1.0);
+    this.scene.setAmbient(255/255, 255/255, 0, 1.0);
+    this.scene.setDiffuse(255/255, 255/255, 0, 1.0);
+    this.scene.setSpecular(255/255, 255/255, 0, 1.0);
     this.parallelogram.display();
     this.scene.popMatrix();
 
@@ -73,7 +81,9 @@ export class MyTangram extends CGFobject {
     this.scene.pushMatrix();
     this.scene.translate(-1.41, 0, 0);
     this.scene.rotate(-(90 + 90 + 45) * Math.PI / 180, 0, 0, 1);
+    this.scene.setAmbient(255 / 255, 128 / 255, 0 / 255, 1.0);
     this.scene.setDiffuse(255 / 255, 128 / 255, 0 / 255, 1.0);
+    this.scene.setSpecular(255 / 255, 128 / 255, 0 / 255, 1.0);
     this.triangleBig.display();
     this.scene.popMatrix();
 
@@ -81,14 +91,18 @@ export class MyTangram extends CGFobject {
     this.scene.pushMatrix();
     this.scene.translate(-3.21, 1.8, 0);
     this.scene.rotate(-45 * Math.PI / 180, 0, 0, 1);
-    this.scene.setDiffuse(76 / 255, 0 / 255, 153 / 255, 0);
+    this.scene.setAmbient(76 / 255, 0 / 255, 153 / 255, 1.0);
+    this.scene.setDiffuse(76 / 255, 0 / 255, 153 / 255, 1.0);
+    this.scene.setSpecular(76 / 255, 0 / 255, 153 / 255, 1.0);
     this.triangleSmall.display();
     this.scene.popMatrix();
 
     // small red triangnle on the left
     this.scene.pushMatrix();
     this.scene.translate(-3.824, -0.5, 0);
-    this.scene.setDiffuse(255, 0, 0);
+    this.scene.setAmbient(255/255, 0, 0, 1.0);
+    this.scene.setDiffuse(255/255, 0, 0, 1.0);
+    this.scene.setSpecular(255/255, 0, 0, 1.0);
     this.triangleSmall.display();
     this.scene.popMatrix();
   }
