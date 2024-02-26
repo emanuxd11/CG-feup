@@ -99,13 +99,24 @@ export class MyScene extends CGFscene {
 
     // ---- BEGIN Primitive drawing section
     
-    if (this.displayTangram) {
-      this.tangram.display();
-    }
     if (this.displayUnitCube) {
+      this.pushMatrix();
+      this.rotate(-90 * Math.PI / 180, 1, 0, 0);
+      this.scale(5, 5, 1);
+      this.translate(0.5, -0.5, -0.501); // add some extra space so adjacent surfaces don't look weird
+      this.setDiffuse(1, 1, 1);
       this.unit_cube.display();
+      this.popMatrix();
     }
 
+    if (this.displayTangram) {
+      this.pushMatrix();
+      this.rotate(3 * Math.PI / 2, 1, 0, 0);
+      this.scale(0.4, 0.4, 0);
+      this.translate(6, -6.5, 0);
+      this.tangram.display();
+      this.popMatrix();
+    }
     // ---- END Primitive drawing section
   }
 }
