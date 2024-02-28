@@ -13,7 +13,7 @@
 ![image of tangram with cube as base](screenshots/cg-t01g09-tp2-2.png)
 **Figura 2: Tangrama anterior com cubo redimensionado a servir de base**
 
-- No exercício 4...
+- No exercício 4 refizemos o cubo unitáro, desta vez construindo-o utilizando as 6 faces como peça, sendo cada uma um quadrado criado à parte. Voltamos também a redimensionar o cubo.
 
-![nome](screenshots/cg-t01g09-tp2-3.png)
-**Figura 3: ...**
+![image of tangram with unit_cube_quad resized to serve as base](screenshots/cg-t01g09-tp2-3.png)
+**Figura 3: Tangrama anterior com o novo cubo redimensionado para servir de base**
