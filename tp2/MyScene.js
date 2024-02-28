@@ -35,7 +35,7 @@ export class MyScene extends CGFscene {
     this.displayAxis = true;
     this.scaleFactor = 1;
     this.displayTangram = false;
-    this.displayUnitCube = true;
+    this.displayUnitCube = false;
     this.displayUnitCubeQuad = true;
   }
 
@@ -123,6 +123,12 @@ export class MyScene extends CGFscene {
 
     if (this.displayUnitCubeQuad) {
       this.pushMatrix();
+      this.rotate(-90 * Math.PI / 180, 1, 0, 0);
+      this.scale(5, 5, 1);
+      this.translate(0.5, -0.5, -0.501); // add some extra space so adjacent surfaces don't look weird
+      this.setAmbient(0.5, 0.5, 0.5, 1);
+      this.setDiffuse(0.5, 0.5, 0.5, 1);
+      this.setSpecular(0.5, 0.5, 0.5, 1);
       this.unit_cube_quad.display();
       this.popMatrix();
     }
