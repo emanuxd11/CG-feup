@@ -68,6 +68,30 @@ export class MyUnitCube extends CGFobject {
       // left face
       3, 2, 6,
       6, 7, 3,
+
+      // front face view from behind
+      7, 3, 0,
+      0, 4, 7,
+
+      // back face view from behind
+      6, 2, 1,
+      1, 5, 6,
+
+      // top face view from behind
+      6, 7, 3,
+      4, 5, 6,
+
+      // bottom face view from behind
+      2, 3, 0,
+      0, 1, 2,
+
+      // right face view from behind
+      5, 1, 0,
+      0, 4, 5,
+
+      // left face view from behind
+      6, 2, 3,
+      3, 7, 6,
 		];
 
     this.normals = [

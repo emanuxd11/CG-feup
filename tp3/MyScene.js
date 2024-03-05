@@ -99,15 +99,12 @@ export class MyScene extends CGFscene {
         this.customMaterial.setAmbient(...this.hexToRgbA(this.customMaterialValues['Ambient']));
         this.customMaterial.setDiffuse(...this.hexToRgbA(this.customMaterialValues['Diffuse']));
         this.customMaterial.setSpecular(...this.hexToRgbA(this.customMaterialValues['Specular']));
-
         this.customMaterial.setShininess(this.customMaterialValues['Shininess']);
-
     };
 
     updateObjectComplexity(){
         this.objects[this.selectedObject].updateBuffers(this.objectComplexity);
     }
-
 
     initMaterials() {
         // Red Ambient (no diffuse, no specular)
@@ -131,6 +128,13 @@ export class MyScene extends CGFscene {
         this.material3.setSpecular(1, 0, 0, 1.0);
         this.material3.setShininess(10.0);
 
+        // Custom material with with color similar to wood
+        this.wood = new CGFappearance(this);
+        this.wood.setAmbient(153 / 255, 102 / 255, 51 / 255, 1.0);
+        this.wood.setDiffuse(0, 0, 0, 1.0);
+        this.wood.setSpecular(0, 0.3, 0, 1.0);
+        this.wood.setShininess(10.0);
+
         // Custom material (can be changed in the interface)
         // initially midrange values on ambient, diffuse and specular, on R, G and B respectively
 
@@ -144,19 +148,21 @@ export class MyScene extends CGFscene {
 
         this.updateCustomMaterial();
 
-        this.materials = [this.material1, this.material2, this.material3, this.customMaterial];
+        this.materials = [this.material1, this.material2, this.material3, this.wood, this.customMaterial];
 
         // Labels and ID's for object selection on MyInterface
-        this.materialIDs = {'Red Ambient': 0, 'Red Diffuse': 1, 'Red Specular': 2, 'Custom': 3 };
+        this.materialIDs = {'Red Ambient': 0, 'Red Diffuse': 1, 'Red Specular': 2, 'Wood': 3, 'Custom': 4 };
     }
     display() {
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+
         // Initialize Model-View matrix as identity (no transformation
         this.updateProjectionMatrix();
         this.loadIdentity();
+
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
         
@@ -167,6 +173,7 @@ export class MyScene extends CGFscene {
         if (this.displayAxis)
             this.axis.display();
 
+
         // ---- BEGIN Primitive drawing section
 
         this.materials[this.selectedMaterial].apply();
@@ -174,10 +181,11 @@ export class MyScene extends CGFscene {
         this.pushMatrix();
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
         
-        if (this.displayNormals)
-            this.objects[this.selectedObject].enableNormalViz();
-        else
-            this.objects[this.selectedObject].disableNormalViz();
+        if (this.displayNormals) {
+          this.objects[this.selectedObject].enableNormalViz();
+        } else {
+          this.objects[this.selectedObject].disableNormalViz();
+        }
         
         this.objects[this.selectedObject].display();
         this.popMatrix();

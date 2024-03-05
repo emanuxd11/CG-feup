@@ -1,4 +1,5 @@
 import {CGFobject} from '../lib/CGF.js';
+
 /**
 * MyPlane
 * @constructor
@@ -78,6 +79,7 @@ export class MyPlane extends CGFobject {
 
         this.scene.popMatrix();
     }
+
     /**
      * Called when user interacts with GUI to change object's complexity.
      * @param {integer} complexity - changes number of nDivs
