@@ -16,8 +16,8 @@ export class MyCylinder extends CGFobject {
 
         let vtcCounter = 0
 
-        for(let stack=0; stack<this.stacks; stack++) {
-            for(let slice=0; slice<this.slices; slice++) {
+        for(let slice=0; slice<this.slices; slice++) { // slice means "side" for whatever reason
+          for(let stack=0; stack<this.stacks; stack++) {
 
                 //vertice x+0
                 this.vertices.push(Math.cos(2*Math.PI*slice/this.slices));
@@ -25,14 +25,14 @@ export class MyCylinder extends CGFobject {
                 this.vertices.push(stack / this.stacks);
 
                 //vertice x+1
-                this.vertices.push(Math.cos(2*Math.PI*(slice+1)/this.slices));
-                this.vertices.push(Math.sin(2*Math.PI*(slice+1)/this.slices));
-                this.vertices.push(stack / this.stacks);
+                // this.vertices.push(Math.cos(2*Math.PI*(slice+1)/this.slices));
+                // this.vertices.push(Math.sin(2*Math.PI*(slice+1)/this.slices));
+                // this.vertices.push(stack / this.stacks);
 
                 //vertice x+2
-                this.vertices.push(Math.cos(2*Math.PI*(slice+1)/this.slices));
-                this.vertices.push(Math.sin(2*Math.PI*(slice+1)/this.slices));
-                this.vertices.push((stack + 1) / this.stacks);
+                // this.vertices.push(Math.cos(2*Math.PI*(slice+1)/this.slices));
+                // this.vertices.push(Math.sin(2*Math.PI*(slice+1)/this.slices));
+                // this.vertices.push((stack + 1) / this.stacks);
 
                 //vertice x+3
                 this.vertices.push(Math.cos(2*Math.PI*slice/this.slices));
@@ -45,14 +45,14 @@ export class MyCylinder extends CGFobject {
                 this.normals.push(0);
 
                 //normal x+1
-                this.normals.push(Math.cos(2*Math.PI*(slice + 1)/this.slices));
-                this.normals.push(Math.sin(2*Math.PI*(slice + 1)/this.slices));
-                this.normals.push(0);
+                // this.normals.push(Math.cos(2*Math.PI*(slice + 1)/this.slices));
+                // this.normals.push(Math.sin(2*Math.PI*(slice + 1)/this.slices));
+                // this.normals.push(0);
 
                 //normal x+2
-                this.normals.push(Math.cos(2*Math.PI*(slice + 1)/this.slices));
-                this.normals.push(Math.sin(2*Math.PI*(slice + 1)/this.slices));
-                this.normals.push(0);
+                // this.normals.push(Math.cos(2*Math.PI*(slice + 1)/this.slices));
+                // this.normals.push(Math.sin(2*Math.PI*(slice + 1)/this.slices));
+                // this.normals.push(0);
 
                 //normal x+3
                 this.normals.push(Math.cos(2*Math.PI*(slice)/this.slices));
@@ -61,10 +61,10 @@ export class MyCylinder extends CGFobject {
 
                 //triangle indeces 0
                 this.indices.push(vtcCounter+0);
-                this.indices.push(vtcCounter+1);
-                this.indices.push(vtcCounter+2);
+                // this.indices.push(vtcCounter+1);
+                // this.indices.push(vtcCounter+2);
                 this.indices.push(vtcCounter+0);
-                this.indices.push(vtcCounter+2);
+                // this.indices.push(vtcCounter+2);
                 this.indices.push(vtcCounter+3);
 
                 vtcCounter+=4;
