@@ -22,7 +22,7 @@
 **Figura 3: Prisma com 8 lados e 20 andares, num total de largura de uma unidade**
 
 ### Exercício 3
-- Neste exercício tivemos como base o código do exercício anterior, modificando-o, em primeiro as normais, fazendo com que estas ficassem paralelas à superfície do cilindro. Na segunda parte do exercício, procuramos otimizar a renderização da figura, removendo vértices desnecessários. Esta metodologia permite suavizar as transições de iluminação nas arestas, dando uma aparência curva à superfície, o que se pode confirmar através da captura de ecrã apresentada.
+- Neste exercício tivemos como base o código do exercício anterior, modificando-o, começando pelas normais, fazendo com que estas ficassem paralelas à superfície do cilindro. Na segunda parte do exercício, procuramos otimizar a renderização da figura, removendo vértices desnecessários. Esta metodologia de representação das normais permite suavizar as transições de iluminação nas arestas, dando uma aparência curva à superfície, o que se pode confirmar através da captura de ecrã apresentada.
 
 ![cylinder with 8 sides and 20 stacks, and smooth lighting](screenshots/cg-t01g09-tp3-4.png)<br>
 **Figura 4: Demosntração de metodologia para suavização da iluminação aplicada ao cilindro**
