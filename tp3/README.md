@@ -18,12 +18,12 @@
 ### Exercício 2
 - No segundo exercício, construímos um prisma com um número variável de "lados" e "andares", o que permite variar o nível de complexidade da figura. A iluminação, neste caso, assemelha-se ao efeito obtido com *Constant Shading* devido à orientação fixa das normais relativamente às faces do prisma.
 
-![](screenshots/cg-t01g09-tp3-3.png)<br>
+![8 side prism with 20 stacks](screenshots/cg-t01g09-tp3-3.png)<br>
 **Figura 3: Prisma com 8 lados e 20 andares, num total de largura de uma unidade**
 
 ### Exercício 3
--
+- Neste exercício tivemos como base o código do exercício anterior, modificando-o, em primeiro as normais, fazendo com que estas ficassem paralelas à superfície do cilindro. Na segunda parte do exercício, procuramos otimizar a renderização da figura, removendo vértices desnecessários. Esta metodologia permite suavizar as transições de iluminação nas arestas, dando uma aparência curva à superfície, o que se pode confirmar através da captura de ecrã apresentada.
 
-![](screenshots/cg-t01g09-tp3-4.png)<br>
-**Figura 4: **
+![cylinder with 8 sides and 20 stacks, and smooth lighting](screenshots/cg-t01g09-tp3-4.png)<br>
+**Figura 4: Demosntração de metodologia para suavização da iluminação aplicada ao cilindro**
 
