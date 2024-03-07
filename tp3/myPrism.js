@@ -10,14 +10,9 @@ export class MyPrism extends CGFobject {
   
     initBuffers() {
 
-        this.vertices = [
-        ];
-        
-        this.indices = [
-        ];
-
-        this.normals = [
-        ];
+        this.vertices = [];
+        this.indices = [];
+        this.normals = [];
 
         let vtcCounter = 0
 
@@ -27,22 +22,22 @@ export class MyPrism extends CGFobject {
                 //vertice x+0
                 this.vertices.push(Math.cos(2*Math.PI*slice/this.slices));
                 this.vertices.push(Math.sin(2*Math.PI*slice/this.slices));
-                this.vertices.push(stack);
+                this.vertices.push(stack / this.stacks);
 
                 //vertice x+1
                 this.vertices.push(Math.cos(2*Math.PI*(slice+1)/this.slices));
                 this.vertices.push(Math.sin(2*Math.PI*(slice+1)/this.slices));
-                this.vertices.push(stack);
+                this.vertices.push(stack / this.stacks);
 
                 //vertice x+2
                 this.vertices.push(Math.cos(2*Math.PI*(slice+1)/this.slices));
                 this.vertices.push(Math.sin(2*Math.PI*(slice+1)/this.slices));
-                this.vertices.push(stack+1);
+                this.vertices.push((stack + 1) / this.stacks);
 
                 //vertice x+3
                 this.vertices.push(Math.cos(2*Math.PI*slice/this.slices));
                 this.vertices.push(Math.sin(2*Math.PI*slice/this.slices));
-                this.vertices.push(stack+1);
+                this.vertices.push((stack + 1) / this.stacks);
 
                 //normal x+0
                 this.normals.push(Math.cos(2*Math.PI*(slice+0.5)/this.slices));
@@ -79,9 +74,6 @@ export class MyPrism extends CGFobject {
         // The defined indices (and corresponding vertices)
         // will be read in groups of three to draw triangles
         this.primitiveType = this.scene.gl.TRIANGLES;
-
-        // Disable backface culling (so it can be visible from both sides)
-        // this.scene.gl.disable(this.scene.gl.CULL_FACE);
 
         this.initGLBuffers();
     }

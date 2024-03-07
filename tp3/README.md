@@ -16,14 +16,14 @@
 **Figura 2: Tangrama colorido com material dinâmico no Diamante**
 
 ### Exercício 2
--
+- No segundo exercício, construímos um prisma com um número variável de "lados" e "andares", o que permite variar o nível de complexidade da figura. A iluminação, neste caso, assemelha-se ao efeito obtido com *Constant Shading* devido à orientação fixa das normais relativamente às faces do prisma.
 
 ![](screenshots/cg-t01g09-tp3-3.png)<br>
-**Figura 1: **
+**Figura 3: Prisma com 8 lados e 20 andares, num total de largura de uma unidade**
 
 ### Exercício 3
 -
 
 ![](screenshots/cg-t01g09-tp3-4.png)<br>
-**Figura 3: **
+**Figura 4: **
 
