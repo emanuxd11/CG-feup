@@ -22,12 +22,12 @@ export class MyTangram extends CGFobject {
   }
 
   initMaterials() {
-    const texture_path = 'images/tangram.png';
+    const texture_path = 'images/tangram-lines.png';
 
     // green diamond
     this.diamondMaterial = new CGFappearance(this.scene);
     this.diamondMaterial.setAmbient(0, 1, 0, 1.0);
-    this.diamondMaterial.setDiffuse(1, 1, 1, 0)
+    this.diamondMaterial.setDiffuse(0.3, 0.3, 0.3, 0)
     this.diamondMaterial.setSpecular(0.9, 0.9, 0.9, 1.0);
     this.diamondMaterial.setShininess(10.0);
     this.diamondMaterial.loadTexture(texture_path);

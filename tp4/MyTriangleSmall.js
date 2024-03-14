@@ -43,5 +43,13 @@ export class MyTriangleSmall extends CGFobject {
 
     this.initGLBuffers();
   }
+
+  setTexCoords(texCoords) {
+    this.texCoords = texCoords;
+
+    this.primitiveType = this.scene.gl.TRIANGLES;
+
+    this.initGLBuffers();
+  }
 }
 

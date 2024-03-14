@@ -38,8 +38,13 @@ export class MyTriangleBig extends CGFobject {
     // will be read in groups of three to draw triangles
     this.primitiveType = this.scene.gl.TRIANGLES;
 
-    // Disable backface culling
-    // this.scene.gl.disable(this.scene.gl.CULL_FACE);
+    this.initGLBuffers();
+  }
+
+  setTexCoords(texCoords) {
+    this.texCoords = texCoords;
+
+    this.primitiveType = this.scene.gl.TRIANGLES;
 
     this.initGLBuffers();
   }
