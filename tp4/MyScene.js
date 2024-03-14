@@ -1,5 +1,6 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFtexture } from "../lib/CGF.js";
 import { MyQuad } from "./MyQuad.js";
+import { MyTangram } from "./MyTangram.js";
 
 /**
  * MyScene
@@ -27,6 +28,11 @@ export class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.quad = new MyQuad(this);
+        this.tangram= new MyTangram(this);
+
+        // to show/hide
+        this.displayQuad = false;
+        this.displayTangram = true;
 
         //------ Applied Material
         this.quadMaterial = new CGFappearance(this);
@@ -47,7 +53,7 @@ export class MyScene extends CGFscene {
         //-------Objects connected to MyInterface
         this.displayAxis = true;
         this.scaleFactor = 5;
-        this.selectedTexture = -1;        
+        this.selectedTexture = -1;
         this.wrapS = 0;
         this.wrapT = 0;
 
@@ -115,17 +121,22 @@ export class MyScene extends CGFscene {
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 
         // ---- BEGIN Primitive drawing section
+        if (this.displayQuad) {
+            this.quadMaterial.apply();
 
-        this.quadMaterial.apply();
+            // Default texture filtering in WebCGF is LINEAR. 
+            // Uncomment next line for NEAREST when magnifying, or 
+            // add a checkbox in the GUI to alternate in real time
+            
+            // this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
 
-        // Default texture filtering in WebCGF is LINEAR. 
-        // Uncomment next line for NEAREST when magnifying, or 
-        // add a checkbox in the GUI to alternate in real time
+            this.quad.display();
+
+            // ---- END Primitive drawing section
+        }
         
-        // this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
-
-        this.quad.display();
-
-        // ---- END Primitive drawing section
+        if (this.displayTangram) {
+            this.tangram.display();
+        }
     }
 }
