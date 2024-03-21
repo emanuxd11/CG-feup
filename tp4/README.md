@@ -11,8 +11,8 @@
 **Figura 1: Tangrama com as texturas de `tangram.png` aplicadas**
 
 ### Exercício 2
--
+- No segundo exercício, foi-nos colocado o desafio de aplicar texturas a todos os lados do `MyUnitCubeQuad`. No início, uma vez que as texturas têm uma resolução menor que o tamanho das faces do quadrado, e que por definição, existe uma interpolação linear das cores, estas ficaram desfocadas, tendo sido necessário alterar o tipo de filtragem para que ficassem bem difinidas.
 
-![](screenshots/cg-t01g09-tp3-2.png)<br>
-**Figura 2:**
+![](screenshots/cg-t01g09-tp4-2.png)<br>
+**Figura 2: Cubo com texturas nítidas**
 
