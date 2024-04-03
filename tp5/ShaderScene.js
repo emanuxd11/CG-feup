@@ -87,6 +87,7 @@ export class ShaderScene extends CGFscene {
 			new CGFshader(this.gl, "shaders/texture2.vert", "shaders/texture2.frag"),
 			new CGFshader(this.gl, "shaders/texture3.vert", "shaders/texture3.frag"),
 			new CGFshader(this.gl, "shaders/texture3anim.vert", "shaders/texture3anim.frag"),
+			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/grayScale.frag"),
 			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/sepia.frag"),
 			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/convolution.frag"),
 			new CGFshader(this.gl, "shaders/yellowAndBlueHorizon.vert", "shaders/yellowAndBlueHorizon.frag")
@@ -109,9 +110,10 @@ export class ShaderScene extends CGFscene {
 			'Multiple textures in the FS': 4,
 			'Multiple textures in VS and FS': 5,
 			'Animation example': 6,
-			'Sepia': 7,
-			'Convolution': 8,
-			'Yellow and Blue Horizon': 9
+			'GrayScale': 7,
+			'Sepia': 8,
+			'Convolution': 9,
+			'Yellow and Blue Horizon': 10
 		};
 
 		// shader code panels references
