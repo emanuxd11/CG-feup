@@ -13,12 +13,12 @@
 ![Yellow and Blue Viewpoint Horizon Texture Teapot](screenshots/cg-t01g09-tp5-1.png)<br>
 **Figura 1: Bule de Chá com horizonte amarelo e azul dependente do ponto de vista**
 
-![Grayscale TExture Teapot](screenshots/cg-t01g09-tp5-2.png)<br>
-**Figura 2: Blue de Chá com textura em tons de cinza**
+![Grayscale Texture Teapot](screenshots/cg-t01g09-tp5-2.png)<br>
+**Figura 2: Bule de Chá com textura em tons de cinza**
 
 ### Exercício 2
-- 
+- No segundo exercício, aprendemos a mapear o relevo da textura à superfície, e a animá-lo, juntamente com a cor, baseando-nos num fator temporal.
 
-![]()<br>
-**Figura 3: -**
+![Dynamic Water Texture](screenshots/cg-t01g09-tp5-3.png)<br>
+**Figura 3: Plano com textura dinâmica de água**
 
