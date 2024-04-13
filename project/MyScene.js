@@ -1,8 +1,6 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
 import { MyPlane } from "./shapes/MyPlane.js";
 import { MySphere } from "./shapes/MySphere.js";
-import { MyStem } from "./objects/MyStem.js";
-import { MyPetal } from "./objects/MyPetal.js";
 import { MyFlower } from "./objects/MyFlower.js";
 
 /**
