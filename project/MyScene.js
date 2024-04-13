@@ -34,9 +34,19 @@ export class MyScene extends CGFscene {
     // this.sphere = new MySphere(this, 10, 10, 10, false);
 
     // Test flower stuff 
-    // this.stem = new MyStem(this, 20, 20);
-    // this.petal = new MyPetal(this);
-    this.flower = new MyFlower(this);
+    this.flower = new MyFlower(
+      this,   // scene
+      5,      // externalRadius
+      9,      // petalQuant
+      30,     // petalSlantAngle
+      3,      // petalStretchFactor
+      null,   // petalColor
+      3,      // receptacleRadius
+      null,   // receptacleColor
+      0.3,    // stemRadius
+      18      // stemSize
+    );
+
 
     //Objects connected to MyInterface
     this.displayAxis = true;

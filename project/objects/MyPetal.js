@@ -2,12 +2,17 @@ import { CGFobject, CGFappearance } from '../../lib/CGF.js';
 import { MyTriangle } from '../shapes/MyTriangle.js';
 
 export class MyPetal extends CGFobject {
-  constructor(scene) {
+  constructor(scene, length, stretchFactor, color) {
     super(scene);
     this.triangle1 = new MyTriangle(scene);
     this.triangle2 = new MyTriangle(scene);
+    this.stretchFactor = stretchFactor;
+    this.length = length;
+    this.color = color;
+
     this.minimumFlap = 5;
     this.maximumFlap = 20;
+
     this.initColors();
     this.initShapes();
   }
@@ -25,11 +30,13 @@ export class MyPetal extends CGFobject {
   }
 
   turnIsosceles() {
-    this.scene.scale(1, 3, 1);
+    this.scene.scale(this.length/this.stretchFactor, this.length, this.length/this.stretchFactor);
     this.scene.rotate(45 * Math.PI / 180, 0, 0, 1);
   }
 
   display() {
+    // Total length of a petal by default is 6√2 units
+
     // First part
     this.scene.pushMatrix();
     this.turnIsosceles();
