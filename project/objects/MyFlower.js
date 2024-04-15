@@ -1,14 +1,17 @@
 import { CGFappearance, CGFobject } from '../../lib/CGF.js';
+import { MyRandom } from '../utils/MyRandom.js';
 import { MyStem } from "./MyStem.js";
 import { MyPetal } from "./MyPetal.js";
 
 export class MyFlower extends CGFobject {
+  static maximumExternalRadius = 7;
 
   static petalColors = [
     { ambient: [1.0, 0.4, 0.4, 1.0], diffuse: [1.0, 0.2, 0.2, 1.0], specular: [1.0, 0.6, 0.6, 1.0], shininess: 10 },   // Red
     { ambient: [0.7, 0.4, 0.8, 1.0], diffuse: [0.7, 0.3, 0.7, 1.0], specular: [0.7, 0.5, 0.9, 1.0], shininess: 10 },   // Violet
     { ambient: [1.0, 0.9, 0.2, 1.0], diffuse: [1.0, 0.9, 0.2, 1.0], specular: [1.0, 0.9, 0.6, 1.0], shininess: 10 },   // Yellow
     { ambient: [1.0, 0.6, 1.0, 1.0], diffuse: [1.0, 0.4, 1.0, 1.0], specular: [1.0, 0.8, 1.0, 1.0], shininess: 10 },   // Magenta
+    { ambient: [0.2, 0.5, 1.0, 1.0], diffuse: [0.3, 0.6, 1.0, 1.0], specular: [0.5, 0.8, 1.0, 1.0], shininess: 15 },   // Light Blue
     { ambient: [0.9, 0.9, 0.8, 1.0], diffuse: [0.95, 0.95, 0.9, 1.0], specular: [0.2, 0.2, 0.2, 1.0], shininess: 2 },  // White
   ];
 
@@ -73,34 +76,24 @@ export class MyFlower extends CGFobject {
     );
   }
 
-  getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
-  getRandomFloat(min, max) {
-    return Math.random() * (max - min) + min;
-  }
-
   getRandomExternalRadius() {
-    return this.getRandomInt(3, 7);
+    return MyRandom.getRandomInt(3, 7);
   }
 
   getRandomPetalQuantity() {
-    return this.getRandomInt(8, 15);
+    return MyRandom.getRandomInt(8, 15);
   }
 
   getRandomPetalSlantAngle() {
-    return this.getRandomInt(0, 35);
+    return MyRandom.getRandomInt(0, 35);
   }
 
   getRandomPetalStretchFactor() {
-    return this.getRandomFloat(1.5, 3.5);
+    return MyRandom.getRandomFloat(1.5, 3.5);
   }
 
   getRandomPetalColor() {
-    const colorChoice = MyFlower.petalColors[this.getRandomInt(0, MyFlower.petalColors.length - 1)];
+    const colorChoice = MyFlower.petalColors[MyRandom.getRandomInt(0, MyFlower.petalColors.length - 1)];
 
     const color = new CGFappearance(this.scene);
     color.setAmbient(...colorChoice.ambient);
@@ -113,11 +106,11 @@ export class MyFlower extends CGFobject {
 
   getRandomReceptacleRadius() {
     // este valor não faz muito sentido com o external radius, uma vez que só podem ser valores entre 1 e 2, o que é muito pequeno
-    return this.getRandomFloat(1, 2.5);
+    return MyRandom.getRandomFloat(1, 2.5);
   }
 
   getRandomReceptacleColor() {
-    const colorChoice = MyFlower.receptacleColors[this.getRandomInt(0, MyFlower.receptacleColors.length - 1)];
+    const colorChoice = MyFlower.receptacleColors[MyRandom.getRandomInt(0, MyFlower.receptacleColors.length - 1)];
 
     const color = new CGFappearance(this.scene);
     color.setAmbient(...colorChoice.ambient);
@@ -129,19 +122,19 @@ export class MyFlower extends CGFobject {
   }
 
   getRandomStemRadius() {
-    return this.getRandomFloat(0.2, 0.4);
+    return MyRandom.getRandomFloat(0.2, 0.4);
   }
 
   getRandomStemSize() {
-    return this.getRandomInt(0, 3);
+    return MyRandom.getRandomInt(0, 3);
   }
 
   getRandomStemHeight() {
-    return this.getRandomFloat(8, 20);
+    return MyRandom.getRandomFloat(8, 20);
   }
 
   getRandomStemColor() {
-    const colorChoice = MyFlower.stemColors[this.getRandomInt(0, MyFlower.stemColors.length - 1)];
+    const colorChoice = MyFlower.stemColors[MyRandom.getRandomInt(0, MyFlower.stemColors.length - 1)];
 
     const color = new CGFappearance(this.scene);
     color.setAmbient(...colorChoice.ambient);

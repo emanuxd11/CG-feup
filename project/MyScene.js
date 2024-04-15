@@ -1,6 +1,7 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
 import { MyPlane } from "./shapes/MyPlane.js";
-import { MyFlower } from "./objects/MyFlower.js";
+// import { MyFlower } from "./objects/MyFlower.js";
+import { MyGarden } from "./objects/MyGarden.js";
 
 /**
  * MyScene
@@ -35,20 +36,21 @@ export class MyScene extends CGFscene {
 
     // Test flower stuff 
     // null for random parameter
-    this.flower = new MyFlower(
-      this,   // scene
-      null,   // externalRadius
-      null,   // petalQuant
-      null,   // petalSlantAngle
-      null,   // petalStretchFactor
-      null,   // petalColor
-      null,   // receptacleRadius
-      null,   // receptacleColor
-      null,   // stemRadius
-      null,   // stemSize
-      null,   // stemHeight
-      null,   // stemColor
-    );
+    // this.flower = new MyFlower(
+    //   this,   // scene
+    //   null,   // externalRadius
+    //   null,   // petalQuant
+    //   null,   // petalSlantAngle
+    //   null,   // petalStretchFactor
+    //   null,   // petalColor
+    //   null,   // receptacleRadius
+    //   null,   // receptacleColor
+    //   null,   // stemRadius
+    //   null,   // stemSize
+    //   null,   // stemHeight
+    //   null,   // stemColor
+    // );
+    this.garden = new MyGarden(this, 5, 5, 1);
 
 
     //Objects connected to MyInterface
@@ -107,13 +109,14 @@ export class MyScene extends CGFscene {
     // this.stem.display();
     // this.sphere.display();
     // this.petal.display();
-    this.flower.display();
+    // this.flower.display();
+    this.garden.display();
 
     this.pushMatrix();
     this.appearance.apply();
-    this.translate(0,-100,0);
-    this.scale(400,400,400);
-    this.rotate(-Math.PI/2.0,1,0,0);
+    this.translate(0, -100, 0);
+    this.scale(400, 400, 400);
+    this.rotate(-Math.PI/2.0, 1, 0, 0);
     this.plane.display();
     this.popMatrix();
 
