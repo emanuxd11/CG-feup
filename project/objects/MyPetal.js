@@ -2,27 +2,28 @@ import { CGFobject, CGFappearance } from '../../lib/CGF.js';
 import { MyTriangle } from '../shapes/MyTriangle.js';
 
 export class MyPetal extends CGFobject {
-  constructor(scene, length, stretchFactor, color) {
+  constructor(scene, length, stretchFactor, color=null, flap) {
     super(scene);
     this.triangle1 = new MyTriangle(scene);
     this.triangle2 = new MyTriangle(scene);
     this.stretchFactor = stretchFactor;
     this.length = length;
     this.color = color;
-
-    this.minimumFlap = 5;
-    this.maximumFlap = 20;
+    this.flap = flap;
 
     this.initColors();
-    this.initShapes();
   }
 
   initColors() {
-    this.petalMaterial = new CGFappearance(this.scene);
-    this.petalMaterial.setAmbient(0.9, 0.9, 0.8, 1.0);
-    this.petalMaterial.setDiffuse(0.95, 0.95, 0.9, 1.0);
-    this.petalMaterial.setSpecular(0.2, 0.2, 0.2, 1.0);
-    this.petalMaterial.setShininess(2);
+    if (this.color != null) {
+      return;
+    }
+
+    this.color = new CGFappearance(this.scene);
+    this.color.setAmbient(0.9, 0.9, 0.8, 1.0);
+    this.color.setDiffuse(0.95, 0.95, 0.9, 1.0);
+    this.color.setSpecular(0.2, 0.2, 0.2, 1.0);
+    this.color.setShininess(2);
   }
 
   initShapes() {
@@ -40,7 +41,7 @@ export class MyPetal extends CGFobject {
     // First part
     this.scene.pushMatrix();
     this.turnIsosceles();
-    this.petalMaterial.apply();
+    this.color.apply();
     this.triangle1.display();
     this.scene.popMatrix();
 
@@ -49,7 +50,7 @@ export class MyPetal extends CGFobject {
     this.scene.rotate(this.flap, 1, 0, 0);
     this.turnIsosceles();    
     this.scene.rotate(180 * Math.PI / 180, 0, 0, 1);
-    this.petalMaterial.apply();
+    this.color.apply();
     this.triangle2.display();
     this.scene.popMatrix();
   }

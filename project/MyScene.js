@@ -34,17 +34,20 @@ export class MyScene extends CGFscene {
     // this.sphere = new MySphere(this, 10, 10, 10, false);
 
     // Test flower stuff 
+    // null for random parameter
     this.flower = new MyFlower(
       this,   // scene
-      5,      // externalRadius
-      9,      // petalQuant
-      30,     // petalSlantAngle
-      3,      // petalStretchFactor
+      null,   // externalRadius
+      null,   // petalQuant
+      null,   // petalSlantAngle
+      null,   // petalStretchFactor
       null,   // petalColor
-      3,      // receptacleRadius
+      null,   // receptacleRadius
       null,   // receptacleColor
-      0.3,    // stemRadius
-      18      // stemSize
+      null,   // stemRadius
+      null,   // stemSize
+      null,   // stemHeight
+      null,   // stemColor
     );
 
 

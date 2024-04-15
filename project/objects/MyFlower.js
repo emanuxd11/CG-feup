@@ -4,24 +4,106 @@ import { MyPetal } from "./MyPetal.js";
 
 export class MyFlower extends CGFobject {
 
-  constructor(scene, externalRadius=10, petalQuant=9, petalSlantAngle=30, petalStretchFactor=3, petalColor=null, receptacleRadius=5, receptacleColor=null, stemRadius=0.3, stemSize=18) {
-    // not sure how to do externalRadius and stemSize unless stem size is actually just height?
+  constructor(scene, externalRadius=null, petalQuant=null, petalSlantAngle=null, petalStretchFactor=null, petalColor=null, receptacleRadius=null, receptacleColor=null, stemRadius=null, stemSize=null, stemHeight=null, stemColor=null) {
     super(scene);
-    this.externalRadius = externalRadius;
-    this.petalQuant = petalQuant;
-    this.petalSlantAngle = petalSlantAngle;
-    this.petalStretchFactor = petalStretchFactor;
-    this.petalColor = petalColor;
-    this.receptacleRadius = receptacleRadius;
-    this.receptacleColor = receptacleColor;
-    this.stemRadius = stemRadius;
-    this.stemSize = stemSize;
+    this.externalRadius = externalRadius || this.getRandomExternalRadius();
+    this.petalQuant = petalQuant || this.getRandomPetalQuantity();
+    this.petalSlantAngle = petalSlantAngle || this.getRandomPetalSlantAngle();
+    this.petalStretchFactor = petalStretchFactor || this.getRandomPetalStretchFactor();
+    this.petalColor = petalColor || this.getRandomPetalColor();
+    this.receptacleRadius = receptacleRadius || this.getRandomReceptacleRadius();
+    this.receptacleColor = receptacleColor || this.getRandomReceptacleColor();
+    this.stemRadius = stemRadius || this.getRandomStemRadius();
+    this.stemSize = stemSize || this.getRandomStemSize();
+    this.stemHeight = stemHeight || this.getRandomStemHeight();
+    this.stemColor = stemColor || this.getRandomStemColor();
 
     this.petalLength = this.externalRadius - this.receptacleRadius;
+    this.minimumPetalFlap = 5;
+    this.maximumPetalFlap = 20;
+    // this.minimum
+    // O mesmo raciocínio deve aplicar-se na junção das pétalas ao coração/receptáculo da flor. 
+    // Cada pétala poderá ter um ângulo de união distinto, aleatório e com limites (máximo e mínimo) parametrizáveis.
+    // ?? ângulo em que sentido? verificar isto
 
-    this.stem = new MyStem(scene, 20, 20, 18, this.stemRadius);
+    // os "cilindros que constituem o caule"... isto seriam ramos?
+
+    this.stem = new MyStem(
+      scene,             // scene
+      20,                // slices
+      20,                // stacks
+      this.stemHeight,   // height
+      this.stemRadius,   // radius
+      this.stemSize,     // size
+      this.stemColor,    // color
+    );
+
     // this.receptacle = new MyReceptacle();
-    this.petals = Array.from({ length: this.petalQuant }, () => new MyPetal(scene, this.petalLength, this.petalStretchFactor, this.petalColor));
+
+    this.petals = Array.from({ length: this.petalQuant }, 
+      () => new MyPetal(
+        scene, 
+        this.petalLength, 
+        this.petalStretchFactor, 
+        this.petalColor, 
+        -((Math.random() * this.maximumPetalFlap) + this.minimumPetalFlap) * Math.PI / 180 
+      )
+    );
+  }
+
+  getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  getRandomFloat(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  getRandomExternalRadius() {
+    return this.getRandomInt(3, 7);
+  }
+
+  getRandomPetalQuantity() {
+    return this.getRandomInt(8, 15);
+  }
+
+  getRandomPetalSlantAngle() {
+    return this.getRandomInt(0, 35);
+  }
+
+  getRandomPetalStretchFactor() {
+    return this.getRandomFloat(1.5, 3.5);
+  }
+
+  getRandomPetalColor() {
+    return null;
+  }
+
+  getRandomReceptacleRadius() {
+    // este valor não faz muito sentido com o external radius, uma vez que só podem ser valores entre 1 e 2, o que é muito pequeno
+    return this.getRandomFloat(1, 2.5);
+  }
+
+  getRandomReceptacleColor() {
+    return null;
+  }
+
+  getRandomStemRadius() {
+    return this.getRandomFloat(0.2, 0.4);
+  }
+
+  getRandomStemSize() {
+    return this.getRandomInt(0, 3);
+  }
+
+  getRandomStemHeight() {
+    return this.getRandomFloat(8, 20);
+  }
+
+  getRandomStemColor() {
+    return null;
   }
 
   display() {
