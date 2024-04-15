@@ -36,7 +36,6 @@ export class MyPetal extends CGFobject {
   }
 
   display() {
-    // Total length of a petal by default is 6√2 units
 
     // First part
     this.scene.pushMatrix();

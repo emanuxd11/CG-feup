@@ -1,8 +1,30 @@
-import { CGFobject } from '../../lib/CGF.js';
+import { CGFappearance, CGFobject } from '../../lib/CGF.js';
 import { MyStem } from "./MyStem.js";
 import { MyPetal } from "./MyPetal.js";
 
 export class MyFlower extends CGFobject {
+
+  static petalColors = [
+    { ambient: [1.0, 0.4, 0.4, 1.0], diffuse: [1.0, 0.2, 0.2, 1.0], specular: [1.0, 0.6, 0.6, 1.0], shininess: 10 },   // Red
+    { ambient: [0.7, 0.4, 0.8, 1.0], diffuse: [0.7, 0.3, 0.7, 1.0], specular: [0.7, 0.5, 0.9, 1.0], shininess: 10 },   // Violet
+    { ambient: [1.0, 0.9, 0.2, 1.0], diffuse: [1.0, 0.9, 0.2, 1.0], specular: [1.0, 0.9, 0.6, 1.0], shininess: 10 },   // Yellow
+    { ambient: [1.0, 0.6, 1.0, 1.0], diffuse: [1.0, 0.4, 1.0, 1.0], specular: [1.0, 0.8, 1.0, 1.0], shininess: 10 },   // Magenta
+    { ambient: [0.9, 0.9, 0.8, 1.0], diffuse: [0.95, 0.95, 0.9, 1.0], specular: [0.2, 0.2, 0.2, 1.0], shininess: 2 },  // White
+  ];
+
+  static receptacleColors = [
+    { ambient: [0.8, 0.2, 0.2, 1.0], diffuse: [0.8, 0.2, 0.2, 1.0], specular: [0.8, 0.2, 0.2, 1.0], shininess: 10 },   // Red
+    { ambient: [0.2, 0.2, 0.8, 1.0], diffuse: [0.2, 0.2, 0.8, 1.0], specular: [0.2, 0.2, 0.8, 1.0], shininess: 10 },   // Blue
+    { ambient: [0.8, 0.8, 0.2, 1.0], diffuse: [0.8, 0.8, 0.2, 1.0], specular: [0.8, 0.8, 0.2, 1.0], shininess: 10 },   // Yellow
+    { ambient: [0.5, 0.2, 0.8, 1.0], diffuse: [0.5, 0.2, 0.8, 1.0], specular: [0.5, 0.2, 0.8, 1.0], shininess: 10 },   // Purple
+    { ambient: [0.8, 0.8, 0.8, 1.0], diffuse: [0.8, 0.8, 0.8, 1.0], specular: [0.8, 0.8, 0.8, 1.0], shininess: 10 },   // White
+    { ambient: [0.6, 0.4, 0.2, 1.0], diffuse: [0.6, 0.4, 0.2, 1.0], specular: [0.6, 0.4, 0.2, 1.0], shininess: 10 },   // Brown
+  ];
+
+  static stemColors = [
+    { ambient: [0.2, 0.8, 0.2, 1.0], diffuse: [0.2, 0.8, 0.2, 1.0], specular: [0.2, 0.8, 0.2, 1.0], shininess: 10 },   // Green
+    { ambient: [0.4, 0.6, 0.4, 1.0], diffuse: [0.4, 0.6, 0.4, 1.0], specular: [0.4, 0.6, 0.4, 1.0], shininess: 10 },   // Light green
+  ];
 
   constructor(scene, externalRadius=null, petalQuant=null, petalSlantAngle=null, petalStretchFactor=null, petalColor=null, receptacleRadius=null, receptacleColor=null, stemRadius=null, stemSize=null, stemHeight=null, stemColor=null) {
     super(scene);
@@ -78,7 +100,15 @@ export class MyFlower extends CGFobject {
   }
 
   getRandomPetalColor() {
-    return null;
+    const colorChoice = MyFlower.petalColors[this.getRandomInt(0, MyFlower.petalColors.length - 1)];
+
+    const color = new CGFappearance(this.scene);
+    color.setAmbient(...colorChoice.ambient);
+    color.setDiffuse(...colorChoice.diffuse);
+    color.setSpecular(...colorChoice.specular);
+    color.setShininess(colorChoice.shininess);
+
+    return color;
   }
 
   getRandomReceptacleRadius() {
@@ -87,7 +117,15 @@ export class MyFlower extends CGFobject {
   }
 
   getRandomReceptacleColor() {
-    return null;
+    const colorChoice = MyFlower.receptacleColors[this.getRandomInt(0, MyFlower.receptacleColors.length - 1)];
+
+    const color = new CGFappearance(this.scene);
+    color.setAmbient(...colorChoice.ambient);
+    color.setDiffuse(...colorChoice.diffuse);
+    color.setSpecular(...colorChoice.specular);
+    color.setShininess(colorChoice.shininess);
+
+    return color;
   }
 
   getRandomStemRadius() {
@@ -103,7 +141,15 @@ export class MyFlower extends CGFobject {
   }
 
   getRandomStemColor() {
-    return null;
+    const colorChoice = MyFlower.stemColors[this.getRandomInt(0, MyFlower.stemColors.length - 1)];
+
+    const color = new CGFappearance(this.scene);
+    color.setAmbient(...colorChoice.ambient);
+    color.setDiffuse(...colorChoice.diffuse);
+    color.setSpecular(...colorChoice.specular);
+    color.setShininess(colorChoice.shininess);
+
+    return color;
   }
 
   display() {
