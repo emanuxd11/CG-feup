@@ -6,17 +6,17 @@ export class MyFlower extends CGFobject {
 
   constructor(scene, externalRadius=null, petalQuant=null, petalSlantAngle=null, petalStretchFactor=null, petalColor=null, receptacleRadius=null, receptacleColor=null, stemRadius=null, stemSize=null, stemHeight=null, stemColor=null) {
     super(scene);
-    this.externalRadius = externalRadius || this.getRandomExternalRadius();
-    this.petalQuant = petalQuant || this.getRandomPetalQuantity();
-    this.petalSlantAngle = petalSlantAngle || this.getRandomPetalSlantAngle();
-    this.petalStretchFactor = petalStretchFactor || this.getRandomPetalStretchFactor();
-    this.petalColor = petalColor || this.getRandomPetalColor();
-    this.receptacleRadius = receptacleRadius || this.getRandomReceptacleRadius();
-    this.receptacleColor = receptacleColor || this.getRandomReceptacleColor();
-    this.stemRadius = stemRadius || this.getRandomStemRadius();
-    this.stemSize = stemSize || this.getRandomStemSize();
-    this.stemHeight = stemHeight || this.getRandomStemHeight();
-    this.stemColor = stemColor || this.getRandomStemColor();
+    this.externalRadius = (externalRadius === null) ? this.getRandomExternalRadius() : externalRadius;
+    this.petalQuant = (petalQuant === null) ? this.getRandomPetalQuantity() : petalQuant;
+    this.petalSlantAngle = (petalSlantAngle === null) ? this.getRandomPetalSlantAngle() : petalSlantAngle;
+    this.petalStretchFactor = (petalStretchFactor === null) ? this.getRandomPetalStretchFactor() : petalStretchFactor;
+    this.petalColor = (petalColor === null) ? this.getRandomPetalColor() : petalColor;
+    this.receptacleRadius = (receptacleRadius === null) ? this.getRandomReceptacleRadius() : receptacleRadius;
+    this.receptacleColor = (receptacleColor === null) ? this.getRandomReceptacleColor() : receptacleColor;
+    this.stemRadius = (stemRadius === null) ? this.getRandomStemRadius() : stemRadius;
+    this.stemSize = (stemSize === null) ? this.getRandomStemSize() : stemSize;
+    this.stemHeight = (stemHeight === null) ? this.getRandomStemHeight() : stemHeight;
+    this.stemColor = (stemColor === null) ? this.getRandomStemColor() : stemColor;
 
     this.petalLength = this.externalRadius - this.receptacleRadius;
     this.minimumPetalFlap = 5;
@@ -115,10 +115,11 @@ export class MyFlower extends CGFobject {
     let currentAngle = 0;
     for (let i = 0; i < this.petalQuant; i++) {
       this.scene.pushMatrix();
-      this.scene.translate(0, this.stem.height + 2, 0);
+      this.scene.translate(0, this.stemHeight + this.receptacleRadius, 0);
+      this.scene.translate(0, 0, 0);
       this.scene.rotate(this.petalSlantAngle * Math.PI / 180, 1, 0, 0);
       this.scene.rotate(currentAngle, 0, 1, 0);
-      this.scene.translate(0, 0, -this.receptacleRadius - this.petalLength);
+      this.scene.translate(0, 0, -this.petalLength * Math.sqrt(2) - this.receptacleRadius);
       this.scene.rotate(-85 * Math.PI / 180, 1, 0, 0);
       this.petals[i].display();
       this.scene.popMatrix();
