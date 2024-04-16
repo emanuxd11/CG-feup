@@ -155,7 +155,6 @@ export class MyFlower extends CGFobject {
     for (let i = 0; i < this.petalQuant; i++) {
       this.scene.pushMatrix();
       this.scene.translate(0, this.stemHeight + this.receptacleRadius, 0);
-      this.scene.translate(0, 0, 0);
       this.scene.rotate(this.petalSlantAngle * Math.PI / 180, 1, 0, 0);
       this.scene.rotate(currentAngle, 0, 1, 0);
       this.scene.translate(0, 0, -this.petalLength * Math.sqrt(2) - this.receptacleRadius);
@@ -167,5 +166,22 @@ export class MyFlower extends CGFobject {
     }
   }
 
-  initBuffers() { }
+  // for debug
+  toString() {
+    return `MyFlower:
+      External Radius: ${this.externalRadius},
+      Petal Quantity: ${this.petalQuant},
+      Petal Slant Angle: ${this.petalSlantAngle},
+      Petal Stretch Factor: ${this.petalStretchFactor},
+      Petal Color: ${this.petalColor},
+      Receptacle Radius: ${this.receptacleRadius},
+      Receptacle Color: ${this.receptacleColor},
+      Stem Radius: ${this.stemRadius},
+      Stem Size: ${this.stemSize},
+      Stem Height: ${this.stemHeight},
+      Stem Color: ${this.stemColor}
+    `;
+  }
+
+  initBuffers() {}
 }
