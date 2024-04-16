@@ -39,24 +39,20 @@ export class MyGarden extends CGFobject {
   }
 
   addColumns() {
+    console.log("NUMBER OF CALCULATED COLS BRAH " + this.getCalculatedCols())
     // go to every row and add x columns of new flowers
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.columns; j++) {
-        if (this.flowers[i][j]) continue;
+        // this is important because depending on the order of 
+        // operations done using the slider, not all rows may 
+        // always have the same number of columns calculated
+        if (this.flowers[i][j]) continue; 
         this.flowers[i].push(new MyFlower(this.scene));
 				this.rotationAngles[i].push(MyRandom.getRandomFloat(0, Math.PI * 2));
 				this.xDisplacement[i].push(MyRandom.getRandomFloat(-2, 2));
 				this.zDisplacement[i].push(MyRandom.getRandomFloat(-2, 2));
       }
     }
-  }
-
-  getCalculatedRows() {
-    return this.flowers.length;  
-  }
-
-  getCalculatedCols() {
-    return this.flowers[0] ? this.flowers[0].length : 0;
   }
 
   updateSize(rows, columns) {
@@ -99,6 +95,17 @@ export class MyGarden extends CGFobject {
 				this.scene.popMatrix();
       }
     }
+  }
+
+  getCalculatedRows() {
+    return this.flowers.length;  
+  }
+
+  getCalculatedCols() {
+    // get minimum number of calculated colums
+    return this.flowers.map(row => row.length)
+      .reduce((minSize, currentSize) => Math.min(minSize, currentSize), Infinity)
+      || 0;
   }
 
   initBuffers() {}
