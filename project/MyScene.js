@@ -113,11 +113,16 @@ export class MyScene extends CGFscene {
     // ---- BEGIN Primitive drawing section
 
     // this.stem.display();
-    this.sphere.display();
     // this.petal.display();
     // this.flower.display();
-    // this.garden.updateSize(this.gardenRows, this.gardenColumns);
     this.garden.display(this.gardenRows, this.gardenCols);
+
+    // display sphere above and to the left of 
+    // flowers just so they don't interfere with each other
+    this.pushMatrix();
+    this.translate(-50, 50, 0);
+    this.sphere.display();
+    this.popMatrix();
 
     this.pushMatrix();
     this.appearance.apply();
