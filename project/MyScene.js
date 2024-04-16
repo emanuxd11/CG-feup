@@ -1,7 +1,8 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
 import { MySphere } from "./shapes/MySphere.js";
 import { MyPlane } from "./shapes/MyPlane.js";
-import { MyFlower } from "./objects/MyFlower.js";
+// import { MyFlower } from "./objects/MyFlower.js";
+import { MyGarden } from "./objects/MyGarden.js";
 
 /**
  * MyScene
@@ -19,7 +20,7 @@ export class MyScene extends CGFscene {
     this.initCameras();
     this.initLights();
 
-    //Background color
+    // Background color
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
     this.gl.clearDepth(100.0);
@@ -36,23 +37,27 @@ export class MyScene extends CGFscene {
 
     // Test flower stuff 
     // null for random parameter
-    this.flower = new MyFlower(
-      this,   // scene
-      null,   // externalRadius
-      null,   // petalQuant
-      null,   // petalSlantAngle
-      null,   // petalStretchFactor
-      null,   // petalColor
-      null,   // receptacleRadius
-      null,   // receptacleColor
-      null,   // stemRadius
-      null,   // stemSize
-      null,   // stemHeight
-      null,   // stemColor
-    );
+    // this.flower = new MyFlower(
+    //   this,   // scene
+    //   null,   // externalRadius
+    //   null,   // petalQuant
+    //   null,   // petalSlantAngle
+    //   null,   // petalStretchFactor
+    //   null,   // petalColor
+    //   null,   // receptacleRadius
+    //   null,   // receptacleColor
+    //   null,   // stemRadius
+    //   null,   // stemSize
+    //   null,   // stemHeight
+    //   null,   // stemColor
+    // );
 
+    // Garden parameters
+    this.gardenRows = 5;
+    this.gardenCols = 5;
+    this.garden = new MyGarden(this, this.gardenRows, this.gardenCols, 1);
 
-    //Objects connected to MyInterface
+    // Objects connected to MyInterface
     this.displayAxis = true;
     this.scaleFactor = 1;
 
@@ -62,7 +67,6 @@ export class MyScene extends CGFscene {
     this.appearance = new CGFappearance(this);
     this.appearance.setTexture(this.texture);
     this.appearance.setTextureWrap('REPEAT', 'REPEAT');
-
   }
 
   initLights() {
@@ -78,7 +82,7 @@ export class MyScene extends CGFscene {
       0.1,
       1000,
       vec3.fromValues(50, 10, 15),
-      vec3.fromValues(0, 0, 0)
+      vec3.fromValues(0, 0, 0),
     );
   }
 
@@ -90,13 +94,16 @@ export class MyScene extends CGFscene {
   }
 
   display() {
+
     // ---- BEGIN Background, camera and axis setup
     // Clear image and depth buffer everytime we update the scene
     this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
-    // Initialize Model-View matrix as identity (no transformation
+
+    // Initialize Model-View matrix as identity (no transformation)
     this.updateProjectionMatrix();
     this.loadIdentity();
+
     // Apply transformations corresponding to the camera position relative to the origin
     this.applyViewMatrix();
 
@@ -109,12 +116,14 @@ export class MyScene extends CGFscene {
     this.sphere.display();
     // this.petal.display();
     // this.flower.display();
+    // this.garden.updateSize(this.gardenRows, this.gardenColumns);
+    this.garden.display(this.gardenRows, this.gardenCols);
 
     this.pushMatrix();
     this.appearance.apply();
-    this.translate(0,-100,0);
-    this.scale(400,400,400);
-    this.rotate(-Math.PI/2.0,1,0,0);
+    this.translate(0, -100, 0);
+    this.scale(400, 400, 400);
+    this.rotate(-Math.PI/2.0, 1, 0, 0);
     this.plane.display();
     this.popMatrix();
 
