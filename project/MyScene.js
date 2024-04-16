@@ -52,8 +52,8 @@ export class MyScene extends CGFscene {
     // );
 
     // Garden parameters
-    this.gardenRows = 1;
-    this.gardenCols = 1;
+    this.gardenRows = 5;
+    this.gardenCols = 5;
     this.garden = new MyGarden(this, this.gardenRows, this.gardenCols, 1);
 
     // Objects connected to MyInterface
@@ -66,7 +66,6 @@ export class MyScene extends CGFscene {
     this.appearance = new CGFappearance(this);
     this.appearance.setTexture(this.texture);
     this.appearance.setTextureWrap('REPEAT', 'REPEAT');
-
   }
 
   initLights() {
