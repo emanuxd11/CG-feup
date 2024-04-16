@@ -1,4 +1,5 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
+import { MySphere } from "./shapes/MySphere.js";
 import { MyPlane } from "./shapes/MyPlane.js";
 import { MyFlower } from "./objects/MyFlower.js";
 
@@ -31,7 +32,7 @@ export class MyScene extends CGFscene {
     this.plane = new MyPlane(this, 30);
     
     // Test sphere
-    // this.sphere = new MySphere(this, 10, 10, 10, false);
+    this.sphere = new MySphere(this, 360, 90, 20, true);
 
     // Test flower stuff 
     // null for random parameter
@@ -105,9 +106,9 @@ export class MyScene extends CGFscene {
     // ---- BEGIN Primitive drawing section
 
     // this.stem.display();
-    // this.sphere.display();
+    this.sphere.display();
     // this.petal.display();
-    this.flower.display();
+    // this.flower.display();
 
     this.pushMatrix();
     this.appearance.apply();
