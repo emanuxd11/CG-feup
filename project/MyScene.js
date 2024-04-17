@@ -1,7 +1,7 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
 import { MySphere } from "./shapes/MySphere.js";
 import { MyPlane } from "./shapes/MyPlane.js";
-// import { MyFlower } from "./objects/MyFlower.js";
+import { MyFlower } from "./objects/MyFlower.js";
 import { MyGarden } from "./objects/MyGarden.js";
 
 /**
@@ -112,17 +112,18 @@ export class MyScene extends CGFscene {
 
     // ---- BEGIN Primitive drawing section
 
-    // this.stem.display();
-    // this.petal.display();
-    // this.flower.display();
-    this.garden.display(this.gardenRows, this.gardenCols);
-
     // display sphere above and to the left of 
     // flowers just so they don't interfere with each other
     this.pushMatrix();
     this.translate(-50, 50, 0);
+    this.setDefaultAppearance();
     this.sphere.display();
     this.popMatrix();
+
+    // this.stem.display();
+    // this.petal.display();
+    // this.flower.display();
+    this.garden.display(this.gardenRows, this.gardenCols);
 
     this.pushMatrix();
     this.appearance.apply();

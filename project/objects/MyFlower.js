@@ -2,6 +2,7 @@ import { CGFappearance, CGFobject } from '../../lib/CGF.js';
 import { MyRandom } from '../utils/MyRandom.js';
 import { MyStem } from "./MyStem.js";
 import { MyPetal } from "./MyPetal.js";
+import { MyReceptacle } from "./MyReceptacle.js";
 
 export class MyFlower extends CGFobject {
   static maximumExternalRadius = 7;
@@ -16,12 +17,10 @@ export class MyFlower extends CGFobject {
   ];
 
   static receptacleColors = [
-    { ambient: [0.8, 0.2, 0.2, 1.0], diffuse: [0.8, 0.2, 0.2, 1.0], specular: [0.8, 0.2, 0.2, 1.0], shininess: 10 },   // Red
-    { ambient: [0.2, 0.2, 0.8, 1.0], diffuse: [0.2, 0.2, 0.8, 1.0], specular: [0.2, 0.2, 0.8, 1.0], shininess: 10 },   // Blue
-    { ambient: [0.8, 0.8, 0.2, 1.0], diffuse: [0.8, 0.8, 0.2, 1.0], specular: [0.8, 0.8, 0.2, 1.0], shininess: 10 },   // Yellow
-    { ambient: [0.5, 0.2, 0.8, 1.0], diffuse: [0.5, 0.2, 0.8, 1.0], specular: [0.5, 0.2, 0.8, 1.0], shininess: 10 },   // Purple
-    { ambient: [0.8, 0.8, 0.8, 1.0], diffuse: [0.8, 0.8, 0.8, 1.0], specular: [0.8, 0.8, 0.8, 1.0], shininess: 10 },   // White
-    { ambient: [0.6, 0.4, 0.2, 1.0], diffuse: [0.6, 0.4, 0.2, 1.0], specular: [0.6, 0.4, 0.2, 1.0], shininess: 10 },   // Brown
+    { ambient: [0.2, 0.5, 1.0, 1.0], diffuse: [0.3, 0.6, 1.0, 1.0], specular: [0.5, 0.8, 1.0, 1.0], shininess: 5 },   // Blue
+    { ambient: [1.0, 1.0, 0.0, 1.0], diffuse: [1.0, 1.0, 0.0, 1.0], specular: [0.8, 0.8, 0.8, 1.0], shininess: 5 },   // Yellow
+    { ambient: [0.8, 0.4, 0.2, 1.0], diffuse: [0.8, 0.4, 0.2, 1.0], specular: [0.8, 0.8, 0.8, 1.0], shininess: 5 },   // Brown
+    { ambient: [1.0, 1.0, 1.0, 1.0], diffuse: [1.0, 0.9, 0.2, 1.0], specular: [1.0, 0.9, 0.6, 1.0], shininess: 5 },   // Yellow
   ];
 
   static stemColors = [
@@ -31,6 +30,7 @@ export class MyFlower extends CGFobject {
 
   constructor(scene, externalRadius=null, petalQuant=null, petalSlantAngle=null, petalStretchFactor=null, petalColor=null, receptacleRadius=null, receptacleColor=null, stemRadius=null, stemSize=null, stemHeight=null, stemColor=null) {
     super(scene);
+    this.scene = scene;
     this.externalRadius = (externalRadius === null) ? this.getRandomExternalRadius() : externalRadius;
     this.petalQuant = (petalQuant === null) ? this.getRandomPetalQuantity() : petalQuant;
     this.petalSlantAngle = (petalSlantAngle === null) ? this.getRandomPetalSlantAngle() : petalSlantAngle;
@@ -54,7 +54,7 @@ export class MyFlower extends CGFobject {
     // os "cilindros que constituem o caule"... isto seriam ramos?
 
     this.stem = new MyStem(
-      scene,             // scene
+      this.scene,        // scene
       20,                // slices
       20,                // stacks
       this.stemHeight,   // height
@@ -63,11 +63,15 @@ export class MyFlower extends CGFobject {
       this.stemColor,    // color
     );
 
-    // this.receptacle = new MyReceptacle();
+    this.receptacle = new MyReceptacle(
+      this.scene, 
+      this.receptacleRadius, 
+      this.receptacleColor,
+    );
 
     this.petals = Array.from({ length: this.petalQuant }, 
       () => new MyPetal(
-        scene, 
+        this.scene, 
         this.petalLength, 
         this.petalStretchFactor, 
         this.petalColor, 
@@ -148,7 +152,10 @@ export class MyFlower extends CGFobject {
   display() {
     this.stem.display();
 
-    // missing receptacle
+    this.scene.pushMatrix();
+    this.scene.translate(0, this.stemHeight + this.receptacleRadius, 0);
+    this.receptacle.display();
+    this.scene.popMatrix();
 
     const angleDiff = 2 * Math.PI / this.petalQuant;
     let currentAngle = 0;
