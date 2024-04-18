@@ -2,14 +2,14 @@ import { CGFobject } from '../../lib/CGF.js';
 
 export class MySphere extends CGFobject {
 
-  constructor(scene, slices, stacks, radius, inside=false) {
+  constructor(scene, slices, stacks, radius, outside=false) {
     super(scene);
     this.slices = slices;
     this.stacks = stacks;
     this.radius = radius;
     
     this.direction = -1;
-    if (inside) this.direction = 1;
+    if (outside) this.direction = 1;
     
     this.initBuffers();
   }
