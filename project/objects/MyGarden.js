@@ -59,9 +59,9 @@ export class MyGarden extends CGFobject {
 
         this.scene.pushMatrix();
         this.scene.translate(
-					i * MyFlower.maximumExternalRadius * 4 + this.xDisplacement[i][j], 
+					i * MyFlower.maximumExternalRadius * 3 + this.xDisplacement[i][j], 
 					0, 
-					j * MyFlower.maximumExternalRadius * 4 + this.zDisplacement[i][j],
+					j * MyFlower.maximumExternalRadius * 3 + this.zDisplacement[i][j],
 				);
 				this.scene.rotate(this.rotationAngles[i][j], 0, 1, 0);
         this.flowers[i][j].display();

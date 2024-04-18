@@ -33,7 +33,7 @@ export class MySphere extends CGFobject {
         //generating new vertice
         this.vertices.push(this.radius*x, this.radius*y, this.radius*z);
         //generating new normal
-        this.normals.push(x, y, z);
+        this.normals.push(x * this.direction, y * this.direction, z * this.direction);
 
         //generating new texCoord
         this.texCoords.push(slice/this.slices,1-stack/(2*this.stacks));

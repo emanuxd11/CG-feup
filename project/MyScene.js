@@ -39,6 +39,9 @@ export class MyScene extends CGFscene {
 
     // Earth texture
     this.earthTexture = new CGFtexture(this, './images/earth.jpg');
+    this.earthSurface = new CGFappearance(this);
+    // this.earthSurface.setEmission(0.3, 0.3, 0.3);
+    this.earthSurface.setTexture(this.earthTexture);
     
     // Test sphere
     this.sphere = new MySphere(this, 360, 90, 20, true);
@@ -127,7 +130,7 @@ export class MyScene extends CGFscene {
     // display earth
     this.pushMatrix();
     this.translate(-50, 50, 0);
-    // this.earthTexture.apply();
+    this.earthSurface.apply();
     this.sphere.display();
     this.popMatrix();
 
