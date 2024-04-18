@@ -28,8 +28,8 @@ export class MyGarden extends CGFobject {
       for (let j = 0; j < this.columns; j++) {
         row.push(new MyFlower(this.scene));
 				rowAngles.push(MyRandom.getRandomFloat(0, Math.PI * 2));
-				rowXDisplacement.push(MyRandom.getRandomFloat(-2, 2));
-				rowZDisplacement.push(MyRandom.getRandomFloat(-2, 2));
+				rowXDisplacement.push(MyRandom.getRandomFloat(-MyFlower.maximumExternalRadius, MyFlower.maximumExternalRadius));
+				rowZDisplacement.push(MyRandom.getRandomFloat(-MyFlower.maximumExternalRadius, MyFlower.maximumExternalRadius));
       }
       this.flowers.push(row);
 			this.rotationAngles.push(rowAngles);

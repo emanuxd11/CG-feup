@@ -16,7 +16,7 @@ export class MyTriangle extends CGFobject {
       1, -1, 0,     // 5
     ];
 
-    //Counter-clockwise reference of vertices
+    // Counter-clockwise reference of vertices
     this.indices = [
       2, 0, 1,
       1, 0, 2,
@@ -31,6 +31,15 @@ export class MyTriangle extends CGFobject {
       0, 0, -1,
       0, 0, -1,
       0, 0, -1,
+    ];
+
+    this.texCoords = [
+      0, 1,
+      0, 0,
+      1, 0,
+      0, 1,
+      0, 0,
+      1, 0,
     ];
 
     // The defined indices (and corresponding vertices)

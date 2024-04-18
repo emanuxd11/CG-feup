@@ -66,8 +66,7 @@ export class MyPlane extends CGFobject {
     this.primitiveType=this.scene.gl.TRIANGLE_STRIP;
   }
 
-  setLineMode() 
-  { 
+  setLineMode() { 
     this.primitiveType=this.scene.gl.LINES;
   };
 

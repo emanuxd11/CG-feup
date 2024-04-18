@@ -9,7 +9,7 @@ export class MyReceptacle extends CGFobject {
     this.radius = radius; 
     this.color = color;
 
-    this.sphere = new MySphere(this.scene, 60, 15, radius, true);
+    this.sphere = new MySphere(this.scene, 20, 5, radius, true);
     this.initColors();
   }
 

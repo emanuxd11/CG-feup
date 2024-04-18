@@ -1,12 +1,19 @@
-import { CGFobject } from '../../lib/CGF.js';
+import { CGFappearance, CGFobject, CGFtexture } from '../../lib/CGF.js';
+import { MySphere } from '../shapes/MySphere.js'
 
 export class MyPanorama extends CGFobject {
 
-  constructor() {
+  constructor(scene, texture) {
+    super(scene);
+    this.sphere = new MySphere(scene, 360, 90, 200,true);
+    this.appearance = new CGFappearance(scene);
+    // this.appearance.setEmission(0.3, 0.3, 0.3);
+    this.appearance.setTexture(texture);
   }
 
-  initBuffers() {
-
+  display() {
+    this.appearance.apply();
+    this.sphere.display();
   }
+
 }
-

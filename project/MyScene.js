@@ -3,6 +3,7 @@ import { MySphere } from "./shapes/MySphere.js";
 import { MyPlane } from "./shapes/MyPlane.js";
 import { MyFlower } from "./objects/MyFlower.js";
 import { MyGarden } from "./objects/MyGarden.js";
+import { MyPanorama } from "./objects/MyPanorama.js";
 
 /**
  * MyScene
@@ -31,6 +32,13 @@ export class MyScene extends CGFscene {
     // Initialize scene objects
     this.axis = new CGFaxis(this);
     this.plane = new MyPlane(this, 30);
+
+    // Initialize Panorama
+    this.panoramaTexture = new CGFtexture(this, './images/panorama4.jpg');
+    this.panorama = new MyPanorama(this, this.panoramaTexture);
+
+    // Earth texture
+    this.earthTexture = new CGFtexture(this, './images/earth.jpg');
     
     // Test sphere
     this.sphere = new MySphere(this, 360, 90, 20, true);
@@ -44,6 +52,7 @@ export class MyScene extends CGFscene {
     //   null,   // petalSlantAngle
     //   null,   // petalStretchFactor
     //   null,   // petalColor
+    //   null,   // petalTexture
     //   null,   // receptacleRadius
     //   null,   // receptacleColor
     //   null,   // stemRadius
@@ -112,11 +121,13 @@ export class MyScene extends CGFscene {
 
     // ---- BEGIN Primitive drawing section
 
-    // display sphere above and to the left of 
-    // flowers just so they don't interfere with each other
+    // display panorama
+    this.panorama.display();
+
+    // display earth
     this.pushMatrix();
     this.translate(-50, 50, 0);
-    this.setDefaultAppearance();
+    // this.earthTexture.apply();
     this.sphere.display();
     this.popMatrix();
 
