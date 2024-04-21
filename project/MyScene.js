@@ -50,13 +50,13 @@ export class MyScene extends CGFscene {
     this.displayAxis = true;
     this.scaleFactor = 1;
     // Earth Globe
-    this.displayEarthGlobe = true;
+    this.displayEarthGlobe = false;
     // Set camera fov
     this.cameraFOV = 90;
     // Toggle Panorama
-    this.displayPanorama = false;
+    this.displayPanorama = true;
     // Infinity Panorama
-    this.infinityPanorama = false;
+    this.infinityPanorama = true;
     // Plane
     this.displayPlane = false;
     // Garden parameters
