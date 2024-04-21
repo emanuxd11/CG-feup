@@ -40,38 +40,30 @@ export class MyScene extends CGFscene {
     // Earth texture
     this.earthTexture = new CGFtexture(this, './images/earth.jpg');
     this.earthSurface = new CGFappearance(this);
-    // this.earthSurface.setEmission(0.3, 0.3, 0.3);
+    this.earthSurface.setEmission(0.3, 0.3, 0.3, 0.3);
     this.earthSurface.setTexture(this.earthTexture);
     
     // Test sphere
     this.sphere = new MySphere(this, 360, 90, 20, true);
 
-    // Test flower stuff 
-    // null for random parameter
-    // this.flower = new MyFlower(
-    //   this,   // scene
-    //   null,   // externalRadius
-    //   null,   // petalQuant
-    //   null,   // petalSlantAngle
-    //   null,   // petalStretchFactor
-    //   null,   // petalColor
-    //   null,   // petalTexture
-    //   null,   // receptacleRadius
-    //   null,   // receptacleColor
-    //   null,   // stemRadius
-    //   null,   // stemSize
-    //   null,   // stemHeight
-    //   null,   // stemColor
-    // );
-
-    // Garden parameters
-    this.gardenRows = 5;
-    this.gardenCols = 5;
-    this.garden = new MyGarden(this, this.gardenRows, this.gardenCols, 1);
-
     // Objects connected to MyInterface
     this.displayAxis = true;
     this.scaleFactor = 1;
+    // Earth Globe
+    this.displayEarthGlobe = true;
+    // Set camera fov
+    this.cameraFOV = 90;
+    // Toggle Panorama
+    this.displayPanorama = false;
+    // Infinity Panorama
+    this.infinityPanorama = false;
+    // Plane
+    this.displayPlane = false;
+    // Garden parameters
+    this.displayGarden = false;
+    this.gardenRows = 2;
+    this.gardenCols = 2;
+    this.garden = new MyGarden(this, this.gardenRows, this.gardenCols, 1);
 
     this.enableTextures(true);
 
@@ -106,6 +98,7 @@ export class MyScene extends CGFscene {
   }
 
   display() {
+    this.camera.fov = this.cameraFOV * Math.PI/180;
 
     // ---- BEGIN Background, camera and axis setup
     // Clear image and depth buffer everytime we update the scene
@@ -125,27 +118,32 @@ export class MyScene extends CGFscene {
     // ---- BEGIN Primitive drawing section
 
     // display panorama
-    this.panorama.display();
+    if (this.displayPanorama) {
+      this.panorama.display(this.infinityPanorama);
+    }
 
     // display earth
-    this.pushMatrix();
-    this.translate(-50, 50, 0);
-    this.earthSurface.apply();
-    this.sphere.display();
-    this.popMatrix();
+    if (this.displayEarthGlobe) {
+      this.pushMatrix();
+      // this.translate(-50, 50, 0);
+      this.earthSurface.apply();
+      this.sphere.display();
+      this.popMatrix();
+    }
 
-    // this.stem.display();
-    // this.petal.display();
-    // this.flower.display();
-    this.garden.display(this.gardenRows, this.gardenCols);
+    if (this.displayGarden) {
+      this.garden.display(this.gardenRows, this.gardenCols);
+    }
 
-    this.pushMatrix();
-    this.appearance.apply();
-    this.translate(0, -100, 0);
-    this.scale(400, 400, 400);
-    this.rotate(-Math.PI/2.0, 1, 0, 0);
-    this.plane.display();
-    this.popMatrix();
+    if (this.displayPlane) {
+      this.pushMatrix();
+      this.appearance.apply();
+      this.translate(0, -100, 0);
+      this.scale(400, 400, 400);
+      this.rotate(-Math.PI/2.0, 1, 0, 0);
+      this.plane.display();
+      this.popMatrix();
+    }
 
     // ---- END Primitive drawing section
   }
