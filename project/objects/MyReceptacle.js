@@ -9,7 +9,8 @@ export class MyReceptacle extends CGFobject {
     this.radius = radius; 
     this.color = color;
 
-    this.sphere = new MySphere(this.scene, 20, 5, radius, true);
+    // provisional values to emulate concave circle while that isn't finished yet
+    this.sphere = new MySphere(this.scene, 180, 360, radius, true);  
     this.initColors();
   }
 
@@ -27,7 +28,10 @@ export class MyReceptacle extends CGFobject {
 
   display() {
     this.color.apply();
+    this.scene.pushMatrix(); // this part is provisional while the concave circle isn't finished
+    this.scene.rotate(Math.PI/2, 0, 0, 1); // provisional
     this.sphere.display();
+    this.scene.popMatrix();
   }
 
   initBuffers() { }

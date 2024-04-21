@@ -52,7 +52,7 @@ export class MyScene extends CGFscene {
     // Earth Globe
     this.displayEarthGlobe = false;
     // Set camera fov
-    this.cameraFOV = 90;
+    this.cameraFOV = 75;
     // Toggle Panorama
     this.displayPanorama = true;
     // Infinity Panorama
@@ -60,9 +60,9 @@ export class MyScene extends CGFscene {
     // Plane
     this.displayPlane = false;
     // Garden parameters
-    this.displayGarden = false;
-    this.gardenRows = 2;
-    this.gardenCols = 2;
+    this.displayGarden = true;
+    this.gardenRows = 3;
+    this.gardenCols = 3;
     this.garden = new MyGarden(this, this.gardenRows, this.gardenCols, 1);
 
     this.enableTextures(true);
@@ -125,7 +125,6 @@ export class MyScene extends CGFscene {
     // display earth
     if (this.displayEarthGlobe) {
       this.pushMatrix();
-      // this.translate(-50, 50, 0);
       this.earthSurface.apply();
       this.sphere.display();
       this.popMatrix();

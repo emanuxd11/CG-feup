@@ -33,7 +33,11 @@ export class MyFlower extends CGFobject {
     '../images/flower/petal2.png',
   ];
 
-  constructor(scene, externalRadius=null, petalQuant=null, petalSlantAngle=null, petalStretchFactor=null, petalColor=null, petalTexture=null, receptacleRadius=null, receptacleColor=null, stemRadius=null, stemSize=null, stemHeight=null, stemColor=null) {
+  constructor(scene, externalRadius=null, petalQuant=null, petalSlantAngle=null, 
+    petalStretchFactor=null, petalColor=null, petalTexture=null, 
+    receptacleRadius=null, receptacleColor=null, stemRadius=null, stemSize=null, 
+    stemHeight=null, stemColor=null) {
+
     super(scene);
     this.scene = scene;
     this.externalRadius = (externalRadius === null) ? this.getRandomExternalRadius() : externalRadius;
@@ -61,8 +65,6 @@ export class MyFlower extends CGFobject {
 
     this.stem = new MyStem(
       this.scene,        // scene
-      8,                 // slices
-      8,                 // stacks
       this.stemHeight,   // height
       this.stemRadius,   // radius
       this.stemSize,     // size
@@ -92,7 +94,7 @@ export class MyFlower extends CGFobject {
   }
 
   getRandomPetalQuantity() {
-    return MyRandom.getRandomInt(8, 15);
+    return MyRandom.getRandomInt(11, 15);
   }
 
   getRandomPetalSlantAngle() {
@@ -123,8 +125,7 @@ export class MyFlower extends CGFobject {
   }
 
   getRandomReceptacleRadius() {
-    // este valor não faz muito sentido com o external radius, uma vez que só podem ser valores entre 1 e 2, o que é muito pequeno
-    return MyRandom.getRandomFloat(1, 2.5);
+    return MyRandom.getRandomFloat(1, this.externalRadius - 2.5);
   }
 
   getRandomReceptacleColor() {
@@ -144,7 +145,7 @@ export class MyFlower extends CGFobject {
   }
 
   getRandomStemSize() {
-    return MyRandom.getRandomInt(0, 3);
+    return MyRandom.getRandomInt(15, 30); // change to 1, 3 when done testing
   }
 
   getRandomStemHeight() {
@@ -167,7 +168,8 @@ export class MyFlower extends CGFobject {
     this.stem.display();
 
     this.scene.pushMatrix();
-    this.scene.translate(0, this.stemHeight + this.receptacleRadius, 0);
+    this.scene.translate(0, this.stem.finalY, this.stem.finalZ);
+    this.scene.rotate(this.stem.totalAngle * Math.PI / 180, 1, 0, 0);
     this.receptacle.display();
     this.scene.popMatrix();
 
@@ -175,8 +177,10 @@ export class MyFlower extends CGFobject {
     let currentAngle = 0;
     for (let i = 0; i < this.petalQuant; i++) {
       this.scene.pushMatrix();
-      this.scene.translate(0, this.stemHeight + this.receptacleRadius, 0);
-      this.scene.rotate(this.petalSlantAngle * Math.PI / 180, 1, 0, 0);
+      this.scene.translate(0, this.stem.finalY + Math.sin(8 * Math.PI / 180) * this.petalLength, this.stem.finalZ);
+      // this.scene.translate(0, this.stemHeight, 0);
+      // this.scene.rotate(this.petalSlantAngle * Math.PI / 180, 1, 0, 0);
+      this.scene.rotate(this.stem.totalAngle * Math.PI / 180, 1, 0, 0);
       this.scene.rotate(currentAngle, 0, 1, 0);
       this.scene.translate(0, 0, -this.petalLength * Math.sqrt(2) - this.receptacleRadius);
       this.scene.rotate(-85 * Math.PI / 180, 1, 0, 0);

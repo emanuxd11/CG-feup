@@ -28,13 +28,12 @@ export class MyConcaveCircle extends CGFobject {
       // 1st circle
       let x1 = Math.sin(slice / this.slices) * Math.sin(this.angle / 2);
       let y1 = Math.cos(this.angle / 2);
-      let z1 =
-          Math.cos(slice / this.slices) * Math.sin(this.angle / 2) * direction;
+      let z1 = Math.cos(slice / this.slices) * Math.sin(this.angle / 2) * this.direction;
 
       // 2nd circle
       let x2 = Math.sin(slice / this.slices) * Math.sin(this.angle);
       let y2 = Math.cos(this.angle);
-      let z2 = Math.cos(slice / this.slices) * Math.sin(this.angle) * direction;
+      let z2 = Math.cos(slice / this.slices) * Math.sin(this.angle) * this.direction;
 
       // generating vertices
       this.vertices.push(x0 * this.radius, y0 * this.radius, z0 * this.radius);
@@ -42,12 +41,9 @@ export class MyConcaveCircle extends CGFobject {
       this.vertices.push(x2 * this.radius, y2 * this.radius, z2 * this.radius);
 
       // generating normals
-      this.normals.push(
-          x0 * this.direction, y0 * this.direction, z0 * this.direction);
-      this.normals.push(
-          x1 * this.direction, y1 * this.direction, z1 * this.direction);
-      this.normals.push(
-          x2 * this.direction, y2 * this.direction, z2 * this.direction);
+      this.normals.push(x0 * this.direction, y0 * this.direction, z0 * this.direction);
+      this.normals.push(x1 * this.direction, y1 * this.direction, z1 * this.direction);
+      this.normals.push(x2 * this.direction, y2 * this.direction, z2 * this.direction);
 
       // generating texCoords
     }
