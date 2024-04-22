@@ -15,6 +15,7 @@ export class MyCylinder extends CGFobject {
     this.vertices = [];
     this.indices = [];
     this.normals = [];
+    // this.texCoords = [];
 
     let vtcCounter = 0
 
@@ -68,6 +69,26 @@ export class MyCylinder extends CGFobject {
       this.indices.push(vtcCounter - vtcCounter / (stack + 1)) // 0
       this.indices.push(vtcCounter - vtcCounter / (stack + 1) + 1) // 1
       this.indices.push(vtcCounter - 1) // 7
+    }
+
+    this.texCoords = [];
+
+    for (let stack = 0; stack <= this.stacks; stack++) {
+      for (let slice = 0; slice < this.slices; slice++) {
+        // Calculate texture coordinates
+        let s = slice / this.slices;  // s-coordinate (circumference)
+        let t = stack / this.stacks;  // t-coordinate (height)
+
+        // Add texture coordinates for two vertices of the current slice
+        this.texCoords.push(s, 1 - t);                      // Vertex 0 (top)
+        this.texCoords.push(s, 1 - (t + 1 / this.stacks));  // Vertex 1 (bottom)
+      }
+    }
+
+    for (let slice = 0; slice < this.slices; slice++) {
+      let s = slice / this.slices;
+      this.texCoords.push(s, 0);  // Vertex 0
+      this.texCoords.push(s, 1);  // Vertex 1
     }
 
     // The defined indices (and corresponding vertices)

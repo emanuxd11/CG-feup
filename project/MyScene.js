@@ -4,6 +4,7 @@ import { MyPlane } from "./shapes/MyPlane.js";
 import { MyFlower } from "./objects/MyFlower.js";
 import { MyGarden } from "./objects/MyGarden.js";
 import { MyPanorama } from "./objects/MyPanorama.js";
+import { MyLeaf } from "./objects/MyLeaf.js";
 
 /**
  * MyScene
@@ -28,6 +29,9 @@ export class MyScene extends CGFscene {
     this.gl.enable(this.gl.DEPTH_TEST);
     this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
+
+    // test
+    this.leaf = new MyLeaf(this, null, null);
 
     // Initialize scene objects
     this.axis = new CGFaxis(this);
@@ -133,6 +137,8 @@ export class MyScene extends CGFscene {
     if (this.displayGarden) {
       this.garden.display(this.gardenRows, this.gardenCols);
     }
+
+    // this.leaf.display();
 
     if (this.displayPlane) {
       this.pushMatrix();

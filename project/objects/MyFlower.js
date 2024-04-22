@@ -33,10 +33,20 @@ export class MyFlower extends CGFobject {
     '../images/flower/petal2.png',
   ];
 
+  static leafTextures = [
+    '../images/flower/leaf1.png',
+    '../images/flower/leaf2.png',
+  ];
+
+  static stemTextures = [
+    '../images/flower/stem1.png',
+    '../images/flower/stem2.png',
+  ];
+
   constructor(scene, externalRadius=null, petalQuant=null, petalSlantAngle=null, 
     petalStretchFactor=null, petalColor=null, petalTexture=null, 
-    receptacleRadius=null, receptacleColor=null, stemRadius=null, stemSize=null, 
-    stemHeight=null, stemColor=null) {
+    receptacleRadius=null, receptacleColor=null, stemRadius=null,
+    stemSize=null, stemColor=null, stemTexture=null, leafQuant=null, leafColor=null, leafTexture=null) {
 
     super(scene);
     this.scene = scene;
@@ -50,18 +60,15 @@ export class MyFlower extends CGFobject {
     this.receptacleColor = (receptacleColor === null) ? this.getRandomReceptacleColor() : receptacleColor;
     this.stemRadius = (stemRadius === null) ? this.getRandomStemRadius() : stemRadius;
     this.stemSize = (stemSize === null) ? this.getRandomStemSize() : stemSize;
-    this.stemHeight = (stemHeight === null) ? this.getRandomStemHeight() : stemHeight;
     this.stemColor = (stemColor === null) ? this.getRandomStemColor() : stemColor;
+    this.stemTexture = (stemTexture === null) ? this.getRandomStemTexture() : stemTexture;
+    this.leafQuant = (leafQuant === null) ? this.getRandomLeafQuant() : leafQuant;
+    this.leafColor = (leafColor === null) ? this.getRandomLeafColor() : leafColor;
+    this.leafTexture = (leafTexture === null) ? this.getRandomLeafTexture() : leafTexture;
 
     this.petalLength = this.externalRadius - this.receptacleRadius;
     this.minimumPetalFlap = 5;
     this.maximumPetalFlap = 20;
-    // this.minimum
-    // O mesmo raciocínio deve aplicar-se na junção das pétalas ao coração/receptáculo da flor. 
-    // Cada pétala poderá ter um ângulo de união distinto, aleatório e com limites (máximo e mínimo) parametrizáveis.
-    // ?? ângulo em que sentido? verificar isto
-
-    // os "cilindros que constituem o caule"... isto seriam ramos?
 
     this.stem = new MyStem(
       this.scene,        // scene
@@ -69,6 +76,10 @@ export class MyFlower extends CGFobject {
       this.stemRadius,   // radius
       this.stemSize,     // size
       this.stemColor,    // color
+      this.stemTexture,  // texture
+      this.leafQuant,    // leaf quantity
+      this.leafColor,    // leaf color
+      this.leafTexture,  // leaf texture
     );
 
     this.receptacle = new MyReceptacle(
@@ -141,15 +152,19 @@ export class MyFlower extends CGFobject {
   }
 
   getRandomStemRadius() {
-    return MyRandom.getRandomFloat(0.2, 0.4);
+    return MyRandom.getRandomFloat(0.2, 0.3);
   }
 
   getRandomStemSize() {
-    return MyRandom.getRandomInt(15, 30); // change to 1, 3 when done testing
+    return MyRandom.getRandomInt(15, 30);
   }
 
-  getRandomStemHeight() {
-    return MyRandom.getRandomFloat(8, 20);
+  getRandomLeafQuant() {
+    return MyRandom.getRandomInt(1, 3);
+  }
+
+  getRandomLeafColor() {
+    return this.getRandomStemColor(); // using the same colors as stem
   }
 
   getRandomStemColor() {
@@ -162,6 +177,20 @@ export class MyFlower extends CGFobject {
     color.setShininess(colorChoice.shininess);
 
     return color;
+  }
+
+  getRandomStemTexture() {
+    const texturePath = MyFlower.stemTextures[MyRandom.getRandomInt(0, MyFlower.stemTextures.length - 1)];
+
+    const texture = new CGFtexture(this.scene, texturePath);
+    return texture;
+  }
+
+  getRandomLeafTexture() {
+    const texturePath = MyFlower.leafTextures[MyRandom.getRandomInt(0, MyFlower.leafTextures.length - 1)];
+
+    const texture = new CGFtexture(this.scene, texturePath);
+    return texture;
   }
 
   display() {
