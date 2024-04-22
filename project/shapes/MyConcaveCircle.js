@@ -4,11 +4,11 @@ export class MyConcaveCircle extends CGFobject {
   constructor(scene, slices, angle, radius, outside = false) {
     super(scene);
     this.slices = slices;
-    this.angle = angle;
-    this.radius = Math.PI * radius / 180;
+    this.angle = Math.PI * angle / 180;
+    this.radius = radius;
 
-    this.direction = -1;
-    if (outside) this.direction = 1;
+    this.direction = 1;
+    if (outside) this.direction = -1;
 
     this.initBuffers();
   }
@@ -46,9 +46,21 @@ export class MyConcaveCircle extends CGFobject {
       this.normals.push(x2 * this.direction, y2 * this.direction, z2 * this.direction);
 
       // generating texCoords
+      this.texCoords.push(0.5,0.5);
+      this.texCoords.push((Math.sin(slice/this.slices)+1)/4,(Math.cos(slice/this.slices)+1)/4);
+      this.texCoords.push((Math.sin(slice/this.slices)+1)/2,(Math.cos(slice/this.slices)+1)/2);
     }
 
     // generating indices
+    for (let slice = 0; slice < this.slices; slice++) {
+
+      //inner triangle
+      this.indices.push(3*slice, 3*(slice+1)+1, 3*slice+1);
+
+      //outer quad
+      this.indices.push(3*slice+1, 3*(slice+1)+1, 3*slice+2);
+      this.indices.push(3*slice+2, 3*(slice+1)+1, 3*(slice+1)+2);
+    }
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();

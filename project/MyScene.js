@@ -1,5 +1,6 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
 import { MySphere } from "./shapes/MySphere.js";
+import { MyConcaveCircle } from "./shapes/MyConcaveCircle.js";
 import { MyPlane } from "./shapes/MyPlane.js";
 import { MyFlower } from "./objects/MyFlower.js";
 import { MyGarden } from "./objects/MyGarden.js";
@@ -49,6 +50,9 @@ export class MyScene extends CGFscene {
     
     // Test sphere
     this.sphere = new MySphere(this, 360, 90, 20, true);
+
+    // Test concave circle
+    this.concaveCircle = new MyConcaveCircle(this, 6, 30, 10, true);
 
     // Objects connected to MyInterface
     this.displayAxis = true;
@@ -121,6 +125,9 @@ export class MyScene extends CGFscene {
 
     // ---- BEGIN Primitive drawing section
 
+    //this.concaveCircle.display();
+
+
     // display panorama
     if (this.displayPanorama) {
       this.panorama.display(this.infinityPanorama);
@@ -149,6 +156,7 @@ export class MyScene extends CGFscene {
       this.plane.display();
       this.popMatrix();
     }
+
 
     // ---- END Primitive drawing section
   }
