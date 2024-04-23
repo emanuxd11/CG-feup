@@ -36,9 +36,9 @@ export class MyConcaveCircle extends CGFobject {
       let z2 = Math.cos(2*Math.PI * slice / this.slices) * Math.sin(this.angle) * this.direction;
 
       // generating vertices
-      this.vertices.push(x0 * this.radius, y0 * this.radius, z0 * this.radius);
-      this.vertices.push(x1 * this.radius, y1 * this.radius, z1 * this.radius);
-      this.vertices.push(x2 * this.radius, y2 * this.radius, z2 * this.radius);
+      this.vertices.push(x0 * this.radius, y0 * this.radius - this.radius + (1-Math.cos(this.angle))*this.radius, z0 * this.radius);
+      this.vertices.push(x1 * this.radius, y1 * this.radius - this.radius + (1-Math.cos(this.angle))*this.radius, z1 * this.radius);
+      this.vertices.push(x2 * this.radius, y2 * this.radius - this.radius + (1-Math.cos(this.angle))*this.radius, z2 * this.radius);
 
       // generating normals
       this.normals.push(- x0 * this.direction, - y0 * this.direction, - z0 * this.direction);
