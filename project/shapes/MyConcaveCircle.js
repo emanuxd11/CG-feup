@@ -26,14 +26,14 @@ export class MyConcaveCircle extends CGFobject {
       let z0 = 0;
 
       // 1st circle
-      let x1 = Math.sin(slice / this.slices) * Math.sin(this.angle / 2);
+      let x1 = Math.sin(2*Math.PI * slice / this.slices) * Math.sin(this.angle / 2);
       let y1 = Math.cos(this.angle / 2);
-      let z1 = Math.cos(slice / this.slices) * Math.sin(this.angle / 2) * this.direction;
+      let z1 = Math.cos(2*Math.PI * slice / this.slices) * Math.sin(this.angle / 2) * this.direction;
 
       // 2nd circle
-      let x2 = Math.sin(slice / this.slices) * Math.sin(this.angle);
+      let x2 = Math.sin(2*Math.PI * slice / this.slices) * Math.sin(this.angle);
       let y2 = Math.cos(this.angle);
-      let z2 = Math.cos(slice / this.slices) * Math.sin(this.angle) * this.direction;
+      let z2 = Math.cos(2*Math.PI * slice / this.slices) * Math.sin(this.angle) * this.direction;
 
       // generating vertices
       this.vertices.push(x0 * this.radius, y0 * this.radius, z0 * this.radius);
@@ -41,14 +41,14 @@ export class MyConcaveCircle extends CGFobject {
       this.vertices.push(x2 * this.radius, y2 * this.radius, z2 * this.radius);
 
       // generating normals
-      this.normals.push(x0 * this.direction, y0 * this.direction, z0 * this.direction);
-      this.normals.push(x1 * this.direction, y1 * this.direction, z1 * this.direction);
-      this.normals.push(x2 * this.direction, y2 * this.direction, z2 * this.direction);
+      this.normals.push(- x0 * this.direction, - y0 * this.direction, - z0 * this.direction);
+      this.normals.push(- x1 * this.direction, - y1 * this.direction, - z1 * this.direction);
+      this.normals.push(- x2 * this.direction, - y2 * this.direction, - z2 * this.direction);
 
       // generating texCoords
       this.texCoords.push(0.5,0.5);
-      this.texCoords.push((Math.sin(slice/this.slices)+1)/4,(Math.cos(slice/this.slices)+1)/4);
-      this.texCoords.push((Math.sin(slice/this.slices)+1)/2,(Math.cos(slice/this.slices)+1)/2);
+      this.texCoords.push((Math.sin(2*Math.PI * slice / this.slices)+1)/4,(Math.cos(2*Math.PI * slice / this.slices)+1)/4);
+      this.texCoords.push((Math.sin(2*Math.PI * slice / this.slices)+1)/2,(Math.cos(2*Math.PI * slice / this.slices)+1)/2);
     }
 
     // generating indices
