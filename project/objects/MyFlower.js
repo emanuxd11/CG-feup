@@ -43,28 +43,34 @@ export class MyFlower extends CGFobject {
     '../images/flower/stem2.png',
   ];
 
+  static receptacleTextures = [
+    '../images/flower/receptacle1.png',
+  ];
+
   constructor(scene, externalRadius=null, petalQuant=null, petalSlantAngle=null, 
     petalStretchFactor=null, petalColor=null, petalTexture=null, 
-    receptacleRadius=null, receptacleColor=null, stemRadius=null,
+    receptacleRadius=null, receptacleAngle=null, receptacleColor=null, receptacleTexture=null, stemRadius=null,
     stemSize=null, stemColor=null, stemTexture=null, leafQuant=null, leafColor=null, leafTexture=null) {
 
     super(scene);
     this.scene = scene;
-    this.externalRadius = (externalRadius === null) ? this.getRandomExternalRadius() : externalRadius;
-    this.petalQuant = (petalQuant === null) ? this.getRandomPetalQuantity() : petalQuant;
-    this.petalSlantAngle = (petalSlantAngle === null) ? this.getRandomPetalSlantAngle() : petalSlantAngle;
-    this.petalStretchFactor = (petalStretchFactor === null) ? this.getRandomPetalStretchFactor() : petalStretchFactor;
-    this.petalColor = (petalColor === null) ? this.getRandomPetalColor() : petalColor;
-    this.petalTexture = (petalTexture === null) ? this.getRandomPetalTexture() : petalTexture;
-    this.receptacleRadius = (receptacleRadius === null) ? this.getRandomReceptacleRadius() : receptacleRadius;
-    this.receptacleColor = (receptacleColor === null) ? this.getRandomReceptacleColor() : receptacleColor;
-    this.stemRadius = (stemRadius === null) ? this.getRandomStemRadius() : stemRadius;
-    this.stemSize = (stemSize === null) ? this.getRandomStemSize() : stemSize;
-    this.stemColor = (stemColor === null) ? this.getRandomStemColor() : stemColor;
-    this.stemTexture = (stemTexture === null) ? this.getRandomStemTexture() : stemTexture;
-    this.leafQuant = (leafQuant === null) ? this.getRandomLeafQuant() : leafQuant;
-    this.leafColor = (leafColor === null) ? this.getRandomLeafColor() : leafColor;
-    this.leafTexture = (leafTexture === null) ? this.getRandomLeafTexture() : leafTexture;
+    this.externalRadius = (externalRadius == null) ? this.getRandomExternalRadius() : externalRadius;
+    this.petalQuant = (petalQuant == null) ? this.getRandomPetalQuantity() : petalQuant;
+    this.petalSlantAngle = (petalSlantAngle == null) ? this.getRandomPetalSlantAngle() : petalSlantAngle;
+    this.petalStretchFactor = (petalStretchFactor == null) ? this.getRandomPetalStretchFactor() : petalStretchFactor;
+    this.petalColor = (petalColor == null) ? this.getRandomPetalColor() : petalColor;
+    this.petalTexture = (petalTexture == null) ? this.getRandomPetalTexture() : petalTexture;
+    this.receptacleRadius = (receptacleRadius == null) ? this.getRandomReceptacleRadius() : receptacleRadius;
+    this.receptacleAngle = (receptacleAngle == null) ? this.getRandomReceptacleAngle() : receptacleAngle;
+    this.receptacleColor = (receptacleColor == null) ? this.getRandomReceptacleColor() : receptacleColor;
+    this.receptacleTexture = (receptacleTexture == null) ? this.getRandomReceptacleTexture() : receptacleTexture;
+    this.stemRadius = (stemRadius == null) ? this.getRandomStemRadius() : stemRadius;
+    this.stemSize = (stemSize == null) ? this.getRandomStemSize() : stemSize;
+    this.stemColor = (stemColor == null) ? this.getRandomStemColor() : stemColor;
+    this.stemTexture = (stemTexture == null) ? this.getRandomStemTexture() : stemTexture;
+    this.leafQuant = (leafQuant == null) ? this.getRandomLeafQuant() : leafQuant;
+    this.leafColor = (leafColor == null) ? this.getRandomLeafColor() : leafColor;
+    this.leafTexture = (leafTexture == null) ? this.getRandomLeafTexture() : leafTexture;
 
     this.petalLength = this.externalRadius - this.receptacleRadius;
     this.minimumPetalFlap = 5;
@@ -86,6 +92,10 @@ export class MyFlower extends CGFobject {
       this.scene, 
       this.receptacleRadius, 
       this.receptacleColor,
+      this.receptacleTexture,
+      this.stemColor,
+      this.stemTexture,
+      this.receptacleAngle,
     );
 
     this.petals = Array.from({ length: this.petalQuant }, 
@@ -139,6 +149,10 @@ export class MyFlower extends CGFobject {
     return MyRandom.getRandomFloat(1, this.externalRadius - 2.5);
   }
 
+  getRandomReceptacleAngle() {
+    return MyRandom.getRandomFloat(25, 35);
+  }
+
   getRandomReceptacleColor() {
     const colorChoice = MyFlower.receptacleColors[MyRandom.getRandomInt(0, MyFlower.receptacleColors.length - 1)];
 
@@ -149,6 +163,13 @@ export class MyFlower extends CGFobject {
     color.setShininess(colorChoice.shininess);
 
     return color;
+  }
+
+  getRandomReceptacleTexture() {
+    const texturePath = MyFlower.receptacleTextures[MyRandom.getRandomInt(0, MyFlower.receptacleTextures.length - 1)];
+
+    const texture = new CGFtexture(this.scene, texturePath);
+    return texture;
   }
 
   getRandomStemRadius() {

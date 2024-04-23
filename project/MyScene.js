@@ -51,9 +51,6 @@ export class MyScene extends CGFscene {
     // Test sphere
     this.sphere = new MySphere(this, 360, 90, 20, true);
 
-    // Test concave circle
-    this.concaveCircle = new MyConcaveCircle(this, 12, 30, 10, true);
-
     // Objects connected to MyInterface
     this.displayAxis = true;
     this.scaleFactor = 1;
@@ -124,9 +121,6 @@ export class MyScene extends CGFscene {
     if (this.displayAxis) this.axis.display();
 
     // ---- BEGIN Primitive drawing section
-
-    this.concaveCircle.display();
-
 
     // display panorama
     if (this.displayPanorama) {
