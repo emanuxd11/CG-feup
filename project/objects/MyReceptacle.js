@@ -1,4 +1,5 @@
 import { CGFobject, CGFappearance } from '../../lib/CGF.js';
+import { MyConcaveCircle } from '../shapes/MyConcaveCircle.js';
 import { MySphere } from '../shapes/MySphere.js';
 
 export class MyReceptacle extends CGFobject {
@@ -10,7 +11,8 @@ export class MyReceptacle extends CGFobject {
     this.color = color;
 
     // provisional values to emulate concave circle while that isn't finished yet
-    this.sphere = new MySphere(this.scene, 180, 360, radius, true);  
+    // this.sphere = new MySphere(this.scene, 180, 360, radius, true);  
+    this.concaveCircle = new MyConcaveCircle(this.scene, 12, 30, this.radius, true);
     this.initColors();
   }
 
@@ -28,10 +30,11 @@ export class MyReceptacle extends CGFobject {
 
   display() {
     this.color.apply();
-    this.scene.pushMatrix(); // this part is provisional while the concave circle isn't finished
-    this.scene.rotate(Math.PI/2, 0, 0, 1); // provisional
-    this.sphere.display();
-    this.scene.popMatrix();
+    // this.scene.pushMatrix(); // this part is provisional while the concave circle isn't finished
+    // this.scene.rotate(Math.PI/2, 0, 0, 1); // provisional
+    // this.sphere.display();
+    this.concaveCircle.display();
+    // this.scene.popMatrix();
   }
 
   initBuffers() { }
