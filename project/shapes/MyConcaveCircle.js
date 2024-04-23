@@ -5,7 +5,7 @@ export class MyConcaveCircle extends CGFobject {
     super(scene);
     this.slices = slices;
     this.angle = Math.PI * angle / 180;
-    this.radius = radius;
+    this.radius = radius/Math.sin(this.angle);
 
     this.direction = 1;
     if (outside) this.direction = -1;
