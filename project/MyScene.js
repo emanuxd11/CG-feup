@@ -1,11 +1,9 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
 import { MySphere } from "./shapes/MySphere.js";
-import { MyConcaveCircle } from "./shapes/MyConcaveCircle.js";
 import { MyPlane } from "./shapes/MyPlane.js";
-import { MyFlower } from "./objects/MyFlower.js";
 import { MyGarden } from "./objects/MyGarden.js";
 import { MyPanorama } from "./objects/MyPanorama.js";
-import { MyLeaf } from "./objects/MyLeaf.js";
+import { MyBee } from "./objects/MyBee.js";
 
 /**
  * MyScene
@@ -30,9 +28,6 @@ export class MyScene extends CGFscene {
     this.gl.enable(this.gl.DEPTH_TEST);
     this.gl.enable(this.gl.CULL_FACE);
     this.gl.depthFunc(this.gl.LEQUAL);
-
-    // test
-    this.leaf = new MyLeaf(this, null, null);
 
     // Initialize scene objects
     this.axis = new CGFaxis(this);
@@ -65,10 +60,14 @@ export class MyScene extends CGFscene {
     // Plane
     this.displayPlane = false;
     // Garden parameters
-    this.displayGarden = true;
+    this.displayGarden = false;
     this.gardenRows = 3;
     this.gardenCols = 3;
     this.garden = new MyGarden(this, this.gardenRows, this.gardenCols, 1);
+
+    // TEST BEE STUFF
+    this.bee = new MyBee(this);
+    // END TEST BEE STUFF
 
     this.enableTextures(true);
 
@@ -134,6 +133,9 @@ export class MyScene extends CGFscene {
       this.sphere.display();
       this.popMatrix();
     }
+    
+    // display bee stuff
+    this.bee.display();
 
     if (this.displayGarden) {
       this.garden.display(this.gardenRows, this.gardenCols);
@@ -155,3 +157,4 @@ export class MyScene extends CGFscene {
     // ---- END Primitive drawing section
   }
 }
+
