@@ -27,7 +27,8 @@ export class MyBee extends CGFobject {
 		this.wing1 = new MyBeeWing(this.scene, 1, 0.2, 4, this.wingMaterial);
 		this.wing2 = new MyBeeWing(this.scene, 0.4, 0.15, 3, this.wingMaterial);
 
-		this.leg1 = new MyBeeLeg(this.scene);
+		this.smallerLeg = new MyBeeLeg(this.scene, null); // add textures !!
+		this.longerLeg = new MyBeeLeg(this.scene, null, 6);
 
 		// util for less calculations during display
 		this.cosPI3 = Math.cos(Math.PI / 3);
@@ -37,7 +38,7 @@ export class MyBee extends CGFobject {
 	display() {
 		let relAbdomenPosition = this.thorax.radius * this.thorax.stretchFactor + this.abdomen.radius * this.abdomen.stretchFactor;
 		let relHeadPosition = this.thorax.radius * this.thorax.stretchFactor + this.head.radius;
-		let relLegPosition = this.thorax.radius + this.leg1.radius * this.leg1.stretchFactor;
+		let relLegPosition = this.thorax.radius + this.smallerLeg.radius * this.smallerLeg.stretchFactor;
 
 		// temp var as in using this for now
 		let wingMovAngle = 5 * Math.PI / 180;
@@ -59,9 +60,54 @@ export class MyBee extends CGFobject {
 		this.head.display();
 		this.scene.popMatrix();
 
+
+		/* LEGS */
+
+		// left side, middle
 		this.scene.pushMatrix();
+		this.scene.rotate(15 * Math.PI / 180, 1, 0, 0);
+		this.scene.translate(0, 0, relLegPosition * 0.95);
+		this.smallerLeg.display();
+		this.scene.popMatrix();
+		
+		// left side, front
+		this.scene.pushMatrix();
+		this.scene.rotate(15 * Math.PI / 180, 1, 0, 0);
+		this.scene.rotate(-30 * Math.PI / 180, 0, 1, 0);
 		this.scene.translate(0, 0, relLegPosition);
-		this.leg1.display();
+		this.smallerLeg.display();
+		this.scene.popMatrix();
+
+		// left side, rear 
+		this.scene.pushMatrix();
+		this.scene.rotate(20 * Math.PI / 180, 1, 0, 0);
+		this.scene.rotate(40 * Math.PI / 180, 0, 1, 0);
+		this.scene.translate(0, 0, relLegPosition);
+		this.longerLeg.display();
+		this.scene.popMatrix();
+
+		// right side, middle
+		this.scene.pushMatrix();
+		this.scene.rotate(-15 * Math.PI / 180, 1, 0, 0);
+		this.scene.rotate(180 * Math.PI / 180, 0, 1, 0);
+		this.scene.translate(0, 0, relLegPosition * 0.95);
+		this.smallerLeg.display();
+		this.scene.popMatrix();
+
+		// right side, front
+		this.scene.pushMatrix();
+		this.scene.rotate(-15 * Math.PI / 180, 1, 0, 0);
+		this.scene.rotate(210 * Math.PI / 180, 0, 1, 0);
+		this.scene.translate(0, 0, relLegPosition);
+		this.smallerLeg.display();
+		this.scene.popMatrix();
+
+		// right side, rear 
+		this.scene.pushMatrix();
+		this.scene.rotate(-20 * Math.PI / 180, 1, 0, 0);
+		this.scene.rotate(140 * Math.PI / 180, 0, 1, 0);
+		this.scene.translate(0, 0, relLegPosition);
+		this.longerLeg.display();
 		this.scene.popMatrix();
 
 		// big wing 1 (left side of bee)

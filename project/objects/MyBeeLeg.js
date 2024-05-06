@@ -4,11 +4,11 @@ import { MySphere } from '../shapes/MySphere.js';
 
 export class MyBeeLeg extends CGFobject {
 
-	constructor(scene, texture) {
+	constructor(scene, texture, stretchFactor=5) {
 		super(scene);
 		this.texture = texture;
 
-		this.stretchFactor = 6;
+		this.stretchFactor = stretchFactor;
 		this.radius = 0.02;
 		this.sphere = new MySphere(scene, 30, 15, this.radius, true);	
 	}
