@@ -12,6 +12,17 @@ export class MyBeeHead extends CGFobject {
 		this.yStretchFactor = 1.8;
 		this.radius = 0.125;
 		this.eyeRadius = 0.1;
+		this.antennaRadius = 0.005;
+		this.antennaStretchFactor = 10;
+		this.mouthRadius = 0.01;
+		this.mouthStretchFactor = 5;
+
+		this.defaultColor = new CGFappearance(this.scene);
+		this.defaultColor.setAmbient(1, 1, 1, 1);
+		this.defaultColor.setDiffuse(1, 1, 1, 1);
+		this.defaultColor.setSpecular(1, 1, 1, 1);
+		this.defaultColor.setEmission(1, 1, 1, 1);
+		this.defaultColor.setShininess(1);
 
 		this.eyeColor = new CGFappearance(this.scene);
 		this.eyeColor.setAmbient(0, 0, 0, 1);
@@ -21,9 +32,28 @@ export class MyBeeHead extends CGFobject {
 
 		this.head = new MySphere(scene, 60, 15, this.radius, true);	
 		this.eye = new MySphere(scene, 20, 5, this.eyeRadius, true);
+		this.antenna = new MySphere(scene, 10, 3, this.antennaRadius, true);
+		this.mouth = new MySphere(scene, 10, 3, this.mouthRadius, true);
+	}
+
+	displayAntenna(side) { // side = 1 or -1
+		this.scene.pushMatrix();
+		this.scene.scale(1, this.antennaStretchFactor * 2, 1);
+		this.antenna.display();
+		this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+		this.scene.translate(0, this.antennaRadius * this.antennaStretchFactor * 2 * 0.95, 0);
+		this.scene.rotate(20 * side * Math.PI / 180, 0, 1, 0);
+		this.scene.rotate(70 * Math.PI / 180, 0, 0, 1);
+		this.scene.translate(0, this.antennaRadius * this.antennaStretchFactor, 0);
+		this.scene.scale(1, this.antennaStretchFactor, 1);
+		this.antenna.display();
+		this.scene.popMatrix();
 	}
 
 	display() {
+		this.defaultColor.apply();
 		this.scene.pushMatrix();
 		this.scene.scale(1, this.yStretchFactor, this.zStretchFactor);
 		this.texture.bind();
@@ -46,6 +76,38 @@ export class MyBeeHead extends CGFobject {
 		this.scene.translate(-this.radius, 0, 0);
 		this.eyeColor.apply();
 		this.eye.display();
+		this.scene.popMatrix();
+
+		// antennae
+		this.scene.pushMatrix();
+		this.scene.rotate(10 * Math.PI / 180, 1, 0, 0);
+		this.scene.translate(0, this.radius * this.yStretchFactor, 0);
+		this.scene.rotate(25 * Math.PI / 180, 0, 0, 1);
+		this.displayAntenna(1);
+		this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+		this.scene.rotate(-10 * Math.PI / 180, 1, 0, 0);
+		this.scene.translate(0, this.radius * this.yStretchFactor, 0);
+		this.scene.rotate(25 * Math.PI / 180, 0, 0, 1);
+		this.displayAntenna(-1);
+		this.scene.popMatrix();
+
+		/* MOUTH */
+		this.scene.pushMatrix();
+		this.scene.rotate(-10 * Math.PI / 180, 1, 0, 0);
+		this.scene.translate(0, -this.radius * this.yStretchFactor, 0);
+		this.scene.rotate(40 * Math.PI / 180, 1, 0, 0);
+		this.scene.scale(1, this.mouthStretchFactor, 1);
+		this.mouth.display();
+		this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+		this.scene.rotate(10 * Math.PI / 180, 1, 0, 0);
+		this.scene.translate(0, -this.radius * this.yStretchFactor, 0);
+		this.scene.rotate(-40 * Math.PI / 180, 1, 0, 0);
+		this.scene.scale(1, this.mouthStretchFactor, 1);
+		this.mouth.display();
 		this.scene.popMatrix();
 	}
 

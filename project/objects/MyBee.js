@@ -36,6 +36,7 @@ export class MyBee extends CGFobject {
 	}
 
 	display() {
+
 		let relAbdomenPosition = this.thorax.radius * this.thorax.stretchFactor + this.abdomen.radius * this.abdomen.stretchFactor;
 		let relHeadPosition = this.thorax.radius * this.thorax.stretchFactor + this.head.radius;
 		let relLegPosition = this.thorax.radius + this.smallerLeg.radius * this.smallerLeg.stretchFactor;
@@ -43,17 +44,23 @@ export class MyBee extends CGFobject {
 		// temp var as in using this for now
 		let wingMovAngle = 5 * Math.PI / 180;
 
-		// display thorax
+
+		/* THORAX */
+
 		this.thorax.display();
 
-		// display abdomen
+
+		/* ABDOMEN */
+
 		this.scene.pushMatrix();
 		this.scene.rotate(-25 * Math.PI / 180, 0, 0, 1);
 		this.scene.translate(relAbdomenPosition - relAbdomenPosition * 0.05, 0, 0);
 		this.abdomen.display();
 		this.scene.popMatrix();
 
-		// display head
+
+		/* HEAD */
+
 		this.scene.pushMatrix();
 		this.scene.rotate(-25 * Math.PI / 180, 0, 0, 1);
 		this.scene.translate(-relHeadPosition + relHeadPosition * 0.1, -0.17, 0);
@@ -74,7 +81,7 @@ export class MyBee extends CGFobject {
 		this.scene.pushMatrix();
 		this.scene.rotate(15 * Math.PI / 180, 1, 0, 0);
 		this.scene.rotate(-30 * Math.PI / 180, 0, 1, 0);
-		this.scene.translate(0, 0, relLegPosition);
+		this.scene.translate(0, 0, relLegPosition * 0.98);
 		this.smallerLeg.display();
 		this.scene.popMatrix();
 
@@ -98,7 +105,7 @@ export class MyBee extends CGFobject {
 		this.scene.pushMatrix();
 		this.scene.rotate(-15 * Math.PI / 180, 1, 0, 0);
 		this.scene.rotate(210 * Math.PI / 180, 0, 1, 0);
-		this.scene.translate(0, 0, relLegPosition);
+		this.scene.translate(0, 0, relLegPosition * 0.98);
 		this.smallerLeg.display();
 		this.scene.popMatrix();
 
@@ -110,6 +117,9 @@ export class MyBee extends CGFobject {
 		this.longerLeg.display();
 		this.scene.popMatrix();
 
+
+		/* WINGS */
+		
 		// big wing 1 (left side of bee)
 		this.scene.pushMatrix();
 		this.scene.rotate(-10 * Math.PI / 180, 0, 1, 0);
@@ -149,7 +159,6 @@ export class MyBee extends CGFobject {
 		this.scene.translate(0, 0, -this.wing2.radius * this.wing2.zStretchFactor);
 		this.wing2.display();
 		this.scene.popMatrix();
-
 	}
 
 }
