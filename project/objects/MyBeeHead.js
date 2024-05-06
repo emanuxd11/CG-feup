@@ -53,12 +53,18 @@ export class MyBeeHead extends CGFobject {
 	}
 
 	display() {
+
+		/* HEAD */
+
 		this.defaultColor.apply();
 		this.scene.pushMatrix();
 		this.scene.scale(1, this.yStretchFactor, this.zStretchFactor);
 		this.texture.bind();
 		this.head.display();
 		this.scene.popMatrix();
+
+
+		/* EYES */
 
 		// left eye
 		this.scene.pushMatrix();
@@ -78,7 +84,10 @@ export class MyBeeHead extends CGFobject {
 		this.eye.display();
 		this.scene.popMatrix();
 
-		// antennae
+
+		/* ANTENNAE */
+
+		// right antenna
 		this.scene.pushMatrix();
 		this.scene.rotate(10 * Math.PI / 180, 1, 0, 0);
 		this.scene.translate(0, this.radius * this.yStretchFactor, 0);
@@ -86,6 +95,7 @@ export class MyBeeHead extends CGFobject {
 		this.displayAntenna(1);
 		this.scene.popMatrix();
 
+		// left antenna
 		this.scene.pushMatrix();
 		this.scene.rotate(-10 * Math.PI / 180, 1, 0, 0);
 		this.scene.translate(0, this.radius * this.yStretchFactor, 0);
@@ -93,7 +103,10 @@ export class MyBeeHead extends CGFobject {
 		this.displayAntenna(-1);
 		this.scene.popMatrix();
 
+
 		/* MOUTH */
+
+		// right side
 		this.scene.pushMatrix();
 		this.scene.rotate(-10 * Math.PI / 180, 1, 0, 0);
 		this.scene.translate(0, -this.radius * this.yStretchFactor, 0);
@@ -102,6 +115,7 @@ export class MyBeeHead extends CGFobject {
 		this.mouth.display();
 		this.scene.popMatrix();
 
+		// left side
 		this.scene.pushMatrix();
 		this.scene.rotate(10 * Math.PI / 180, 1, 0, 0);
 		this.scene.translate(0, -this.radius * this.yStretchFactor, 0);
