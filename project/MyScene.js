@@ -20,7 +20,7 @@ export class MyScene extends CGFscene {
 
     this.initCameras();
     this.initLights();
-
+    
     // Background color
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -47,7 +47,7 @@ export class MyScene extends CGFscene {
     this.sphere = new MySphere(this, 360, 90, 20, true);
 
     // Objects connected to MyInterface
-    this.displayAxis = true;
+    this.displayAxis = false;
     this.scaleFactor = 1;
     // Earth Globe
     this.displayEarthGlobe = false;
