@@ -12,7 +12,12 @@ export class MyBee extends CGFobject {
 	constructor(scene) {
 		super(scene);
 
-		this.headTexture = new CGFtexture(this.scene, '../images/bee/head.jpg');
+		this.xDiff = 0;
+		this.yDiff = 0;
+		this.zDiff = 0;
+
+		this.wingMovAngle = 0;
+
 		this.thoraxTexture = new CGFtexture(this.scene, '../images/bee/thorax.jpg');
 		this.abdomenTexture = new CGFtexture(this.scene, '../images/bee/abdomen.jpg');
 		this.wingMaterial = new CGFappearance(this.scene);
@@ -23,7 +28,7 @@ export class MyBee extends CGFobject {
 
 		this.thorax = new MyBeeThorax(this.scene, this.thoraxTexture);
 		this.abdomen = new MyBeeAbdomen(this.scene, this.abdomenTexture);
-		this.head = new MyBeeHead(this.scene, this.headTexture);
+		this.head = new MyBeeHead(this.scene);
 		this.wing1 = new MyBeeWing(this.scene, 1, 0.2, 4, this.wingMaterial);
 		this.wing2 = new MyBeeWing(this.scene, 0.4, 0.15, 3, this.wingMaterial);
 
@@ -41,8 +46,10 @@ export class MyBee extends CGFobject {
 		let relHeadPosition = this.thorax.radius * this.thorax.stretchFactor + this.head.radius;
 		let relLegPosition = this.thorax.radius + this.smallerLeg.radius * this.smallerLeg.stretchFactor;
 
-		// temp var as in using this for now
-		let wingMovAngle = 5 * Math.PI / 180;
+
+		/* POSITIONING */
+		this.scene.pushMatrix();
+		this.scene.translate(0, this.yDiff, 0);
 
 
 		/* THORAX */
@@ -125,7 +132,7 @@ export class MyBee extends CGFobject {
 		this.scene.rotate(-10 * Math.PI / 180, 0, 1, 0);
 		this.scene.translate(0, this.thorax.radius * this.sinPI3, -this.thorax.radius * this.cosPI3); 
 		this.scene.translate(0, 0, this.thorax.radius - 0.02);
-		this.scene.rotate(-wingMovAngle, 1, 0, 0);
+		this.scene.rotate(-this.wingMovAngle, 1, 0, 0);
 		this.scene.translate(0, 0, this.wing1.radius * this.wing1.zStretchFactor);
 		this.wing1.display();
 		this.scene.popMatrix();
@@ -135,7 +142,7 @@ export class MyBee extends CGFobject {
 		this.scene.rotate(10 * Math.PI / 180, 0, 1, 0);
 		this.scene.translate(0, this.thorax.radius * this.sinPI3, this.thorax.radius * this.cosPI3); 
 		this.scene.translate(0, 0, -this.thorax.radius + 0.02);
-		this.scene.rotate(wingMovAngle, 1, 0, 0);
+		this.scene.rotate(this.wingMovAngle, 1, 0, 0);
 		this.scene.translate(0, 0, -this.wing1.radius * this.wing1.zStretchFactor);
 		this.wing1.display();
 		this.scene.popMatrix();
@@ -145,7 +152,7 @@ export class MyBee extends CGFobject {
 		this.scene.rotate(10 * Math.PI / 180, 0, 1, 0);
 		this.scene.translate(0, this.thorax.radius * this.sinPI3, -this.thorax.radius * this.cosPI3); 
 		this.scene.translate(0, 0, this.thorax.radius - 0.02);
-		this.scene.rotate(-wingMovAngle, 1, 0, 0);
+		this.scene.rotate(-this.wingMovAngle, 1, 0, 0);
 		this.scene.translate(0, 0, this.wing2.radius * this.wing2.zStretchFactor);
 		this.wing2.display();
 		this.scene.popMatrix();
@@ -155,10 +162,27 @@ export class MyBee extends CGFobject {
 		this.scene.rotate(-10 * Math.PI / 180, 0, 1, 0);
 		this.scene.translate(0, this.thorax.radius * this.sinPI3, this.thorax.radius * this.cosPI3); 
 		this.scene.translate(0, 0, -this.thorax.radius + 0.02);
-		this.scene.rotate(wingMovAngle, 1, 0, 0);
+		this.scene.rotate(this.wingMovAngle, 1, 0, 0);
 		this.scene.translate(0, 0, -this.wing2.radius * this.wing2.zStretchFactor);
 		this.wing2.display();
 		this.scene.popMatrix();
+
+
+		/* END OF POSITIONING */
+		this.scene.popMatrix();
+	}
+
+	update(time) {
+    this.updatePosition(time);
+    this.updateWings(time);
+	}
+
+	updatePosition(time) {
+		this.yDiff = Math.sin(time * 2 * Math.PI) / 4;
+	}
+
+	updateWings(time) {
+		this.wingMovAngle = (30 * Math.PI / 180) * Math.sin(time * 6 * Math.PI) + 0 * Math.PI / 180;
 	}
 
 }

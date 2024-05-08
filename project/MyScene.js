@@ -18,9 +18,11 @@ export class MyScene extends CGFscene {
   init(application) {
     super.init(application);
 
+    this.startTime = Date.now();
+
     this.initCameras();
     this.initLights();
-    
+
     // Background color
     this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -42,12 +44,12 @@ export class MyScene extends CGFscene {
     this.earthSurface = new CGFappearance(this);
     this.earthSurface.setEmission(0.3, 0.3, 0.3, 0.3);
     this.earthSurface.setTexture(this.earthTexture);
-    
-    // Test sphere
+
+    // Earth sphere
     this.sphere = new MySphere(this, 360, 90, 20, true);
 
     // Objects connected to MyInterface
-    this.displayAxis = false;
+    this.displayAxis = true;
     this.scaleFactor = 1;
     // Earth Globe
     this.displayEarthGlobe = false;
@@ -67,6 +69,7 @@ export class MyScene extends CGFscene {
 
     // TEST BEE STUFF
     this.bee = new MyBee(this);
+    this.checkSphere = new MySphere(this, 360, 90, 1, true);
     // END TEST BEE STUFF
 
     this.enableTextures(true);
@@ -75,6 +78,8 @@ export class MyScene extends CGFscene {
     this.appearance = new CGFappearance(this);
     this.appearance.setTexture(this.texture);
     this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+
+    this.setUpdatePeriod(50);
   }
 
   initLights() {
@@ -102,7 +107,7 @@ export class MyScene extends CGFscene {
   }
 
   display() {
-    this.camera.fov = this.cameraFOV * Math.PI/180;
+    this.camera.fov = this.cameraFOV * Math.PI / 180;
 
     // ---- BEGIN Background, camera and axis setup
     // Clear image and depth buffer everytime we update the scene
@@ -135,6 +140,7 @@ export class MyScene extends CGFscene {
     }
     
     // display bee stuff
+    // this.checkSphere.display();
     this.bee.display();
 
     if (this.displayGarden) {
@@ -155,6 +161,15 @@ export class MyScene extends CGFscene {
 
 
     // ---- END Primitive drawing section
+  }
+
+  update(time) {
+    const elapsed = (time - this.startTime) / 1000;
+
+    this.bee.update(elapsed);
+    // console.log("TIME ELAPSED: " + elapsed)
+
+
   }
 }
 
