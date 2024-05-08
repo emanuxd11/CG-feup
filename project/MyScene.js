@@ -65,7 +65,7 @@ export class MyScene extends CGFscene {
     // Plane
     this.displayPlane = false;
     // Garden parameters
-    this.displayGarden = false;
+    this.displayGarden = true;
     this.gardenRows = 3;
     this.gardenCols = 3;
     this.garden = new MyGarden(this, this.gardenRows, this.gardenCols, 1);
