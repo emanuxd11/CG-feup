@@ -29,8 +29,8 @@ export class MyBee extends CGFobject {
 		this.thorax = new MyBeeThorax(this.scene, this.thoraxTexture);
 		this.abdomen = new MyBeeAbdomen(this.scene, this.abdomenTexture);
 		this.head = new MyBeeHead(this.scene);
-		this.wing1 = new MyBeeWing(this.scene, 1, 0.2, 4, this.wingMaterial);
-		this.wing2 = new MyBeeWing(this.scene, 0.4, 0.15, 3, this.wingMaterial);
+		this.wing1 = new MyBeeWing(this.scene, 1.5, 0.2, 5, this.wingMaterial);
+		this.wing2 = new MyBeeWing(this.scene, 0.9, 0.15, 3.6, this.wingMaterial);
 
 		this.smallerLeg = new MyBeeLeg(this.scene, null); // add textures !!
 		this.longerLeg = new MyBeeLeg(this.scene, null, 6);

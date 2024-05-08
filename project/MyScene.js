@@ -141,7 +141,10 @@ export class MyScene extends CGFscene {
     
     // display bee stuff
     // this.checkSphere.display();
+    this.pushMatrix();
+    this.translate(0, 3, 0);
     this.bee.display();
+    this.popMatrix();
 
     if (this.displayGarden) {
       this.garden.display(this.gardenRows, this.gardenCols);
