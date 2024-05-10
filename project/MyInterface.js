@@ -45,6 +45,43 @@ export class MyInterface extends CGFinterface {
     // Slider for FOV
     this.gui.add(this.scene, 'cameraFOV', 30, 170).step(1).name('FOV');
 
+    // Slider for bee movement sensitivity 
+    this.gui.add(this.scene, 'speedFactor', 0.1, 3).name('Speed Factor');
+
+    // Slider for bee scale
+    this.gui.add(this.scene, 'beeScaleFactor', 0.5, 3).name('Bee Scale Factor');
+
+    // Init Keys
+    this.initKeys();
+
     return true;
   }
+
+  initKeys() {
+    // create reference from the scene to the GUI
+    this.scene.gui = this;
+
+    // disable the processKeyboard function
+    this.processKeyboard = function() {};
+
+    // create a named array to store which keys are being pressed
+    this.activeKeys = {};
+  }
+
+  processKeyDown(event) {
+    // called when a key is pressed down
+    // mark it as active in the array
+    this.activeKeys[event.code] = true;
+  }
+
+  processKeyUp(event) {
+    // called when a key is released, mark it as inactive in the array
+    this.activeKeys[event.code] = false;
+  }
+
+  isKeyPressed(keyCode) {
+    // returns true if a key is marked as pressed, false otherwise
+    return this.activeKeys[keyCode] || false;
+  }
+
 }

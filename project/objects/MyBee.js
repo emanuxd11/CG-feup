@@ -9,12 +9,16 @@ import { MyBeeLeg } from './MyBeeLeg.js';
 
 export class MyBee extends CGFobject {
 
-	constructor(scene) {
+	constructor(scene, position={ x: 0, y: 0, z: 0 }, orientation, velocity={ x: 0, y: 0, z: 0 }) {
 		super(scene);
 
-		this.xDiff = 0;
-		this.yDiff = 0;
-		this.zDiff = 0;
+		this.position = position;
+		this.velocity = velocity;
+		this.orientation = orientation;
+
+		// for fine tuning of movement sensitivity
+		this.turnFactor = 10;
+		this.speedFactor = 1/1000;
 
 		this.wingMovAngle = 0;
 
@@ -48,8 +52,10 @@ export class MyBee extends CGFobject {
 
 
 		/* POSITIONING */
+
 		this.scene.pushMatrix();
-		this.scene.translate(0, this.yDiff, 0);
+		this.scene.translate(this.position.x, this.position.y, this.position.z);
+		this.scene.rotate(this.orientation * Math.PI / 180, 0, 1, 0);
 
 
 		/* THORAX */
@@ -169,6 +175,7 @@ export class MyBee extends CGFobject {
 
 
 		/* END OF POSITIONING */
+
 		this.scene.popMatrix();
 	}
 
@@ -178,11 +185,41 @@ export class MyBee extends CGFobject {
 	}
 
 	updatePosition(time) {
-		this.yDiff = Math.sin(time * 2 * Math.PI) / 4;
+		this.position.y = Math.sin(time * 2 * Math.PI) / 4;
+
+		this.position.x += this.velocity.x * this.speedFactor;
+		this.position.z += this.velocity.z * this.speedFactor;
 	}
 
 	updateWings(time) {
-		this.wingMovAngle = (30 * Math.PI / 180) * Math.sin(time * 6 * Math.PI) + 0 * Math.PI / 180;
+		this.wingMovAngle = (30 * Math.PI / 180) * Math.sin(time * 14 * Math.PI) + 0 * Math.PI / 180;
+	}
+
+	turn(v) {
+		const magnitude = Math.sqrt(this.velocity.x ** 2 + this.velocity.z ** 2);
+
+		this.orientation += v * this.turnFactor;
+
+		this.velocity.x = magnitude * (-Math.cos(this.orientation * Math.PI / 180));
+		this.velocity.z = magnitude * Math.sin(this.orientation * Math.PI / 180);
+	}
+
+	accelerate(v) {
+		this.velocity.x += v * (-Math.cos(this.orientation * Math.PI / 180));
+		this.velocity.z += v * (Math.sin(this.orientation * Math.PI / 180));
+	}
+
+	resetMovement() {
+		this.position.x = 0;
+		this.position.y = 0;
+		this.position.z = 0;
+
+		this.velocity.x = 0;
+		this.velocity.y = 0;
+		this.velocity.z = 0;
+
+		this.orientation = 0;
 	}
 
 }
+

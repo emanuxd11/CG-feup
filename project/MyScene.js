@@ -19,6 +19,7 @@ export class MyScene extends CGFscene {
     super.init(application);
 
     this.startTime = Date.now();
+    this.speedFactor = 1;
 
     this.initCameras();
     this.initLights();
@@ -50,7 +51,7 @@ export class MyScene extends CGFscene {
 
     // Objects connected to MyInterface
     this.displayAxis = true;
-    this.scaleFactor = 1;
+    this.beeScaleFactor = 1;
     // Earth Globe
     this.displayEarthGlobe = false;
     // Set camera fov
@@ -68,7 +69,7 @@ export class MyScene extends CGFscene {
     this.garden = new MyGarden(this, this.gardenRows, this.gardenCols, 1);
 
     // TEST BEE STUFF
-    this.bee = new MyBee(this);
+    this.bee = new MyBee(this, { x: 0, y: 0, z: 0 }, 0, { x: 0, y: 0, z: 0 });
     this.checkSphere = new MySphere(this, 360, 90, 1, true);
     // END TEST BEE STUFF
 
@@ -79,7 +80,7 @@ export class MyScene extends CGFscene {
     this.appearance.setTexture(this.texture);
     this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
-    this.setUpdatePeriod(50);
+    this.setUpdatePeriod(20);
   }
 
   initLights() {
@@ -106,6 +107,28 @@ export class MyScene extends CGFscene {
     this.setShininess(10.0);
   }
 
+  checkKeys() {
+    if (this.gui.isKeyPressed('KeyW')) {
+      this.bee.accelerate(this.speedFactor);
+    }
+
+    if (this.gui.isKeyPressed('KeyA')) {
+      this.bee.turn(this.speedFactor);
+    }
+
+    if (this.gui.isKeyPressed('KeyS')) {
+      this.bee.accelerate(-this.speedFactor);
+    }
+
+    if (this.gui.isKeyPressed('KeyD')) {
+      this.bee.turn(-this.speedFactor);
+    }
+
+    if (this.gui.isKeyPressed('KeyR')) {
+      this.bee.resetMovement();
+    }
+  }
+
   display() {
     this.camera.fov = this.cameraFOV * Math.PI / 180;
 
@@ -118,7 +141,8 @@ export class MyScene extends CGFscene {
     this.updateProjectionMatrix();
     this.loadIdentity();
 
-    // Apply transformations corresponding to the camera position relative to the origin
+    // Apply transformations corresponding to the camera position relative to
+    // the origin
     this.applyViewMatrix();
 
     // Draw axis
@@ -138,16 +162,22 @@ export class MyScene extends CGFscene {
       this.sphere.display();
       this.popMatrix();
     }
-    
-    // display bee stuff
+
+    // display bee
     // this.checkSphere.display();
     this.pushMatrix();
     this.translate(0, 3, 0);
+    this.translate(this.bee.position.x, this.bee.position.y, this.bee.position.z);
+    this.scale(this.beeScaleFactor, this.beeScaleFactor, this.beeScaleFactor);
+    this.translate(-this.bee.position.x, -this.bee.position.y, -this.bee.position.z);
     this.bee.display();
     this.popMatrix();
 
     if (this.displayGarden) {
+      // this.pushMatrix();
+      // this.scale(0.15, 0.15, 0.15);
       this.garden.display(this.gardenRows, this.gardenCols);
+      // this.popMatrix();
     }
 
     // this.leaf.display();
@@ -157,11 +187,10 @@ export class MyScene extends CGFscene {
       this.appearance.apply();
       this.translate(0, -100, 0);
       this.scale(400, 400, 400);
-      this.rotate(-Math.PI/2.0, 1, 0, 0);
+      this.rotate(-Math.PI / 2.0, 1, 0, 0);
       this.plane.display();
       this.popMatrix();
     }
-
 
     // ---- END Primitive drawing section
   }
@@ -172,7 +201,6 @@ export class MyScene extends CGFscene {
     this.bee.update(elapsed);
     // console.log("TIME ELAPSED: " + elapsed)
 
-
+    this.checkKeys();
   }
 }
-
