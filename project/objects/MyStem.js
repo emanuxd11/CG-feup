@@ -31,8 +31,8 @@ export class MyStem extends CGFobject {
     // for translating each part of the stem to the proper place
     // first index is null since we don't use this (we don't need to calculate 
     // placings for the first cylinder since that's just the origin)
-    this.zCoords = [null];
-    this.yCoords = [null];
+    this.zCoords = [0];
+    this.yCoords = [0];
 
     this.leafPlacements = [];
     for (let i = 0; i < this.leafQuant; i++) {
@@ -59,8 +59,10 @@ export class MyStem extends CGFobject {
       this.cylinderAngles.push(angle);
       this.totalAngle += angle;
 
-      let prevZ = this.zCoords[i] != null ? this.zCoords[i] : 0;
-      let prevY = this.yCoords[i] != null ? this.yCoords[i] : 0;
+      // let prevZ = this.zCoords[i] != null ? this.zCoords[i] : 0;
+      // let prevY = this.yCoords[i] != null ? this.yCoords[i] : 0;
+      let prevZ = this.zCoords[i];
+      let prevY = this.yCoords[i] ;
       this.zCoords.push(prevZ + Math.sin(this.totalAngle * Math.PI / 180) * currentHeight);
       this.yCoords.push(prevY + Math.cos(this.totalAngle * Math.PI / 180) * currentHeight);
 
@@ -77,11 +79,6 @@ export class MyStem extends CGFobject {
   }
 
   getRandomCylinderHeight() {
-    // if (this.size > 1) {
-    //   return MyRandom.getRandomInt(6, 9);
-    // } else {
-    //   return MyRandom.getRandomInt(10, 13);
-    // }
     if (this.size > 1) {
       return MyRandom.getRandomFloat(0.5, 1.5);
     } else {
