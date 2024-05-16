@@ -6,7 +6,7 @@ import { MyFlower } from "./objects/MyFlower.js";
 import { MyGarden } from "./objects/MyGarden.js";
 import { MyPanorama } from "./objects/MyPanorama.js";
 import { MyLeaf } from "./objects/MyLeaf.js";
-//import { MyRockSet } from "./objects/MyRockSet.js";
+import { MyRockSet } from "./objects/MyRockSet.js";
 
 /**
  * MyScene
@@ -50,7 +50,7 @@ export class MyScene extends CGFscene {
     this.earthSurface.setTexture(this.earthTexture);
 
     // RockSet
-    //this.rocks = new MyRockSet(this, 3, 5, 10);
+    this.rocks = new MyRockSet(this, 3, 5, 10);
     
     // Test sphere
     this.sphere = new MySphere(this, 360, 90, 20, true);
@@ -157,13 +157,13 @@ export class MyScene extends CGFscene {
       this.popMatrix();
     }
 
-    /*
+    
     if (this.displayRockSet) {
       this.pushMatrix();
       this.rocks.display();
       this.popMatrix();
     }
-    */
+    
 
 
     // ---- END Primitive drawing section
