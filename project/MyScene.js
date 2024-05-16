@@ -4,6 +4,8 @@ import { MyPlane } from "./shapes/MyPlane.js";
 import { MyGarden } from "./objects/MyGarden.js";
 import { MyPanorama } from "./objects/MyPanorama.js";
 import { MyBee } from "./objects/MyBee.js";
+import { MyGrassLeaf } from "./objects/MyGrassLeaf.js";
+import { MyGrassField } from "./objects/MyGrassField.js";
 
 /**
  * MyScene
@@ -50,16 +52,16 @@ export class MyScene extends CGFscene {
     this.sphere = new MySphere(this, 360, 90, 20, true);
 
     // Objects connected to MyInterface
-    this.displayAxis = true;
+    this.displayAxis = false;
     this.beeScaleFactor = 1;
     // Earth Globe
     this.displayEarthGlobe = false;
     // Set camera fov
     this.cameraFOV = 75;
     // Toggle Panorama
-    this.displayPanorama = true;
+    this.displayPanorama = false;
     // Infinity Panorama
-    this.infinityPanorama = true;
+    this.infinityPanorama = false;
     // Plane
     this.displayPlane = false;
     // Garden parameters
@@ -73,14 +75,20 @@ export class MyScene extends CGFscene {
     this.checkSphere = new MySphere(this, 360, 90, 1, true);
     // END TEST BEE STUFF
 
+    // TEST GRASS
+    // this.grassLeaf = new MyGrassLeaf(this, 25);
+    this.grassField = new MyGrassField(this, 50, 50);
+    this.displayGrass = true;
+    // END TEST GRASS
+
     this.enableTextures(true);
 
-    this.texture = new CGFtexture(this, "images/terrain.jpg");
+    this.texture = new CGFtexture(this, "images/grass/base2.png");
     this.appearance = new CGFappearance(this);
     this.appearance.setTexture(this.texture);
     this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
-    this.setUpdatePeriod(20);
+    this.setUpdatePeriod(16.6);
   }
 
   initLights() {
@@ -180,12 +188,16 @@ export class MyScene extends CGFscene {
       // this.popMatrix();
     }
 
-    // this.leaf.display();
+    if (this.displayGrass) {
+      this.setActiveShader(this.grassField.grassShader);
+      this.grassField.display();
+      this.setActiveShader(this.defaultShader);
+    }
 
     if (this.displayPlane) {
       this.pushMatrix();
       this.appearance.apply();
-      this.translate(0, -100, 0);
+      // this.translate(0, -100, 0);
       this.scale(400, 400, 400);
       this.rotate(-Math.PI / 2.0, 1, 0, 0);
       this.plane.display();
@@ -197,10 +209,8 @@ export class MyScene extends CGFscene {
 
   update(time) {
     const elapsed = (time - this.startTime) / 1000;
-
-    this.bee.update(elapsed);
-    // console.log("TIME ELAPSED: " + elapsed)
-
     this.checkKeys();
+    this.bee.update(elapsed);
+    this.grassField.update(elapsed);
   }
 }
