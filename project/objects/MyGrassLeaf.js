@@ -15,8 +15,8 @@ export class MyGrassLeaf extends CGFobject {
     this.texCoords = [];
     this.normals = [];
 
-    const baseWidth = MyRandom.getRandomFloat(0.3, 0.9);
-    const height = MyRandom.getRandomFloat(2, 4) / this.levels;
+    const baseWidth = 1;
+    const height = 1 / this.levels
     const numVerticesPerLevel = 2;
 
     for (let i = 0; i <= this.levels; i++) {

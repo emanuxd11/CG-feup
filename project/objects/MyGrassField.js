@@ -4,15 +4,28 @@ import { MyGrassLeaf } from './MyGrassLeaf.js';
 
 export class MyGrassField extends CGFobject {
 
-  constructor(scene, rows=50, columns=50) {
+  constructor(scene, rows=50, columns=50, perSquareDensity=2) {
     super(scene);
 
     this.rows = rows;
     this.columns = columns;
+    this.perSquareDensity = perSquareDensity;
 
-    this.grassLeaves = Array.from({ length: this.rows * this.columns }, gl => new MyGrassLeaf(this.scene, 9));
-    this.yaw = Array.from({length: this.rows * this.columns}, yaw => MyRandom.getRandomFloat(0, 30 * Math.PI / 180));
-    this.strength = Array.from({length: this.rows * this.columns}, strength => MyRandom.getRandomFloat(0.05, 0.35));
+    this.grassLeaf = new MyGrassLeaf(this.scene, 7);
+    this.transforms = [];
+
+    // Generate transformations for each grass blade
+    for (let i = 0; i < this.rows * this.perSquareDensity; i++) {
+      for (let j = 0; j < this.columns * this.perSquareDensity; j++) {
+        const yaw = MyRandom.getRandomFloat(0, 30 * Math.PI / 180);
+        const strength = MyRandom.getRandomFloat(1.5, 3);
+        const xScale = MyRandom.getRandomFloat(0.7, 1.1);
+        const yScale = MyRandom.getRandomFloat(2, 4);
+        const x = i / this.perSquareDensity + MyRandom.getRandomFloat(-1 / this.perSquareDensity, 1 / this.perSquareDensity);
+        const z = j / this.perSquareDensity + MyRandom.getRandomFloat(-1 / this.perSquareDensity, 1 / this.perSquareDensity);
+        this.transforms.push({ x, z, yaw, strength, xScale, yScale });
+      }
+    }
 
     this.time = 0;
 
@@ -36,25 +49,20 @@ export class MyGrassField extends CGFobject {
   }
 
   display() {
-    for (let i = 0; i < this.rows; i++) {
-      for (let j = 0; j < this.columns; j++) {
-        this.scene.pushMatrix();
-        this.scene.translate(
-          i * 0.25, 
-          0, 
-          j * 0.25,
-        );
-        this.scene.rotate(this.yaw[i * this.columns + j], 0, 1, 0);
-        this.grassMaterial.apply();
-        this.grassShader.setUniformsValues({ uTime: Math.sin(this.time), strength: this.strength[i * this.columns + j] });
-        this.grassLeaves[i * this.columns + j].display();
-        this.scene.popMatrix();
-      }
+    this.grassMaterial.apply();
+
+    for (const { x, z, yaw, strength, xScale, yScale } of this.transforms) {
+      this.scene.pushMatrix();
+      this.scene.translate(x, 0, z);
+      this.scene.rotate(yaw, 0, 1, 0);
+      this.grassShader.setUniformsValues({ uTime: Math.sin(this.time), strength: strength });
+      this.scene.scale(xScale, yScale, 1);
+      this.grassLeaf.display();
+      this.scene.popMatrix();
     }
   }
 
   update(time) {
     this.time = time;
   }
-
 }
