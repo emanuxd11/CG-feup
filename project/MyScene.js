@@ -77,7 +77,7 @@ export class MyScene extends CGFscene {
 
     // TEST GRASS
     // this.grassLeaf = new MyGrassLeaf(this, 25);
-    this.grassField = new MyGrassField(this, 50, 50);
+    this.grassField = new MyGrassField(this, 50, 50, 2);
     this.displayGrass = true;
     // END TEST GRASS
 
