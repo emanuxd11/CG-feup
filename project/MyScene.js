@@ -4,8 +4,8 @@ import { MyPlane } from "./shapes/MyPlane.js";
 import { MyGarden } from "./objects/MyGarden.js";
 import { MyPanorama } from "./objects/MyPanorama.js";
 import { MyBee } from "./objects/MyBee.js";
-import { MyGrassLeaf } from "./objects/MyGrassLeaf.js";
 import { MyGrassField } from "./objects/MyGrassField.js";
+import { MyRockSet } from "./objects/MyRockSet.js";
 
 /**
  * MyScene
@@ -48,7 +48,11 @@ export class MyScene extends CGFscene {
     this.earthSurface.setEmission(0.3, 0.3, 0.3, 0.3);
     this.earthSurface.setTexture(this.earthTexture);
 
+    // RockSet
+    this.rocks = new MyRockSet(this, 3, 5, 10);
+    
     // Earth sphere
+    // Test sphere
     this.sphere = new MySphere(this, 360, 90, 20, true);
 
     // Objects connected to MyInterface
@@ -64,6 +68,8 @@ export class MyScene extends CGFscene {
     this.infinityPanorama = true;
     // Plane
     this.displayPlane = true;
+    // Rocks
+    this.displayRockSet = false;
     // Garden parameters
     this.displayGarden = false;
     this.gardenRows = 3;
@@ -211,6 +217,13 @@ export class MyScene extends CGFscene {
       this.scale(400, 1, 400);
       this.rotate(-Math.PI / 2.0, 1, 0, 0);
       this.plane.display();
+      this.popMatrix();
+    }
+
+    if (this.displayRockSet) {
+      this.pushMatrix();
+      this.translate(-50, 0, -10);
+      this.rocks.display();
       this.popMatrix();
     }
 
