@@ -39,7 +39,7 @@ export class MyScene extends CGFscene {
     this.plane = new MyPlane(this, 30);
 
     // Initialize Panorama
-    this.panoramaTexture = new CGFtexture(this, './images/panorama4.jpg');
+    this.panoramaTexture = new CGFtexture(this, './images/panorama/panorama.jpg');
     this.panorama = new MyPanorama(this, this.panoramaTexture);
 
     // Earth texture
@@ -59,11 +59,11 @@ export class MyScene extends CGFscene {
     // Set camera fov
     this.cameraFOV = 75;
     // Toggle Panorama
-    this.displayPanorama = false;
+    this.displayPanorama = true;
     // Infinity Panorama
-    this.infinityPanorama = false;
+    this.infinityPanorama = true;
     // Plane
-    this.displayPlane = false;
+    this.displayPlane = true;
     // Garden parameters
     this.displayGarden = false;
     this.gardenRows = 3;
@@ -83,16 +83,25 @@ export class MyScene extends CGFscene {
 
     this.enableTextures(true);
 
-    this.texture = new CGFtexture(this, "images/grass/base2.png");
-    this.appearance = new CGFappearance(this);
-    this.appearance.setTexture(this.texture);
-    this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+    this.texture = new CGFtexture(this, "images/grass/base.png");
+    this.planeMaterial= new CGFappearance(this);
+    this.planeMaterial.setAmbient(1, 1, 1, 1.0);
+    this.planeMaterial.setDiffuse(1, 1, 1, 1.0);
+    this.planeMaterial.setSpecular(1, 1, 1, 1.0);
+    this.planeMaterial.setShininess(1.0);
+    this.planeMaterial.setTexture(this.texture);
+    this.planeMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
     this.setUpdatePeriod(16.6);
   }
 
   initLights() {
     this.lights[0].setPosition(15, 0, 5, 1);
+    this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+    this.lights[0].enable();
+    this.lights[0].update();
+
+    this.lights[0].setPosition(50, 100, 0, 1);
     this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
     this.lights[0].enable();
     this.lights[0].update();
@@ -171,6 +180,11 @@ export class MyScene extends CGFscene {
       this.popMatrix();
     }
 
+
+    /* PUT EVERYTHING AT THE SAME HEIGHT IN THE Y AXIS */
+    this.pushMatrix();
+    this.translate(0, -25, 0);
+
     // display bee
     // this.checkSphere.display();
     this.pushMatrix();
@@ -182,10 +196,7 @@ export class MyScene extends CGFscene {
     this.popMatrix();
 
     if (this.displayGarden) {
-      // this.pushMatrix();
-      // this.scale(0.15, 0.15, 0.15);
       this.garden.display(this.gardenRows, this.gardenCols);
-      // this.popMatrix();
     }
 
     if (this.displayGrass) {
@@ -196,13 +207,15 @@ export class MyScene extends CGFscene {
 
     if (this.displayPlane) {
       this.pushMatrix();
-      this.appearance.apply();
-      // this.translate(0, -100, 0);
-      this.scale(400, 400, 400);
+      this.planeMaterial.apply();
+      this.scale(400, 1, 400);
       this.rotate(-Math.PI / 2.0, 1, 0, 0);
       this.plane.display();
       this.popMatrix();
     }
+
+    /* POP MATRIX USED TO PUT EVERYRTHING AT SAME Y AXIS */
+    this.popMatrix();
 
     // ---- END Primitive drawing section
   }

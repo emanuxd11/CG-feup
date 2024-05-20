@@ -4,7 +4,7 @@ import { MyGrassLeaf } from './MyGrassLeaf.js';
 
 export class MyGrassField extends CGFobject {
 
-  constructor(scene, rows=50, columns=50, perSquareDensity=2) {
+  constructor(scene, rows=50, columns=50, perSquareDensity=1) {
     super(scene);
 
     this.rows = rows;
@@ -44,7 +44,7 @@ export class MyGrassField extends CGFobject {
     this.grassMaterial.setSpecular(0.1, 0.1, 0.1, 1);
     this.grassMaterial.setEmission(0.5, 0.5, 0.5, 1);
     this.grassMaterial.setShininess(1.0);
-    this.grassMaterial.loadTexture('images/grass/leaf.jpg');
+    this.grassMaterial.loadTexture('images/grass/leaf.png');
     this.grassMaterial.setTextureWrap('REPEAT', 'REPEAT');
   }
 
