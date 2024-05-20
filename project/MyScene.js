@@ -7,6 +7,7 @@ import { MyBee } from "./objects/MyBee.js";
 import { MyGrassField } from "./objects/MyGrassField.js";
 import { MyRockSet } from "./objects/MyRockSet.js";
 
+
 /**
  * MyScene
  * @constructor
@@ -74,7 +75,7 @@ export class MyScene extends CGFscene {
     this.displayGarden = false;
     this.gardenRows = 3;
     this.gardenCols = 3;
-    this.garden = new MyGarden(this, this.gardenRows, this.gardenCols, 1);
+    this.garden = new MyGarden(this, this.gardenRows, this.gardenCols, 2);
 
     // TEST BEE STUFF
     this.bee = new MyBee(this, { x: 0, y: 0, z: 0 }, 0, { x: 0, y: 0, z: 0 });
@@ -198,7 +199,7 @@ export class MyScene extends CGFscene {
     this.translate(this.bee.position.x, this.bee.position.y, this.bee.position.z);
     this.scale(this.beeScaleFactor, this.beeScaleFactor, this.beeScaleFactor);
     this.translate(-this.bee.position.x, -this.bee.position.y, -this.bee.position.z);
-    this.bee.display();
+    // this.bee.display();
     this.popMatrix();
 
     if (this.displayGarden) {
