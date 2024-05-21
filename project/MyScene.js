@@ -6,6 +6,7 @@ import { MyPanorama } from "./objects/MyPanorama.js";
 import { MyBee } from "./objects/MyBee.js";
 import { MyGrassField } from "./objects/MyGrassField.js";
 import { MyRockSet } from "./objects/MyRockSet.js";
+import { MyPollen } from "./objects/MyPollen.js";
 
 /**
  * MyScene
@@ -76,26 +77,39 @@ export class MyScene extends CGFscene {
     this.gardenCols = 3;
     this.garden = new MyGarden(this, this.gardenRows, this.gardenCols, 1);
 
+
     // TEST BEE STUFF
+
     this.bee = new MyBee(this, { x: 0, y: 0, z: 0 }, 0, { x: 0, y: 0, z: 0 });
     this.checkSphere = new MySphere(this, 360, 90, 1, true);
+
+    // pollen stuff
+    this.pollenMaterial = new CGFappearance(this);
+    this.pollenMaterial.setAmbient(1, 1, 1, 1.0);
+    this.pollenMaterial.setDiffuse(1, 1, 1, 1.0);
+    this.pollenMaterial.setSpecular(1, 1, 1, 1.0);
+    this.pollenMaterial.setShininess(1.0);
+    this.pollenMaterial.setTexture(new CGFtexture(this, "images/bee/pollen.png"));
+    this.pollenMaterial.setTextureWrap('REPEAT', 'REPEAT');
+    this.pollen = new MyPollen(this, this.pollenMaterial);
+
     // END TEST BEE STUFF
+
 
     // TEST GRASS
     // this.grassLeaf = new MyGrassLeaf(this, 25);
     this.grassField = new MyGrassField(this, 50, 50, 2);
-    this.displayGrass = true;
+    this.displayGrass = false;
     // END TEST GRASS
 
     this.enableTextures(true);
 
-    this.texture = new CGFtexture(this, "images/grass/base.png");
-    this.planeMaterial= new CGFappearance(this);
+    this.planeMaterial = new CGFappearance(this);
     this.planeMaterial.setAmbient(1, 1, 1, 1.0);
     this.planeMaterial.setDiffuse(1, 1, 1, 1.0);
     this.planeMaterial.setSpecular(1, 1, 1, 1.0);
     this.planeMaterial.setShininess(1.0);
-    this.planeMaterial.setTexture(this.texture);
+    this.planeMaterial.setTexture(new CGFtexture(this, "images/grass/base.png"));
     this.planeMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
     this.setUpdatePeriod(16.6);
@@ -199,6 +213,10 @@ export class MyScene extends CGFscene {
     this.scale(this.beeScaleFactor, this.beeScaleFactor, this.beeScaleFactor);
     this.translate(-this.bee.position.x, -this.bee.position.y, -this.bee.position.z);
     this.bee.display();
+    this.popMatrix();
+    this.pushMatrix();
+    this.translate(0, 30, 0);
+    this.pollen.display();
     this.popMatrix();
 
     if (this.displayGarden) {
