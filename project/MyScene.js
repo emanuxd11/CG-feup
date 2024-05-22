@@ -58,6 +58,8 @@ export class MyScene extends CGFscene {
     // Test sphere
     this.sphere = new MySphere(this, 360, 90, 20, true);
 
+    this.hive = new MyHive(this);
+
     // Objects connected to MyInterface
     this.displayAxis = false;
     this.beeScaleFactor = 1;
@@ -77,7 +79,7 @@ export class MyScene extends CGFscene {
     this.displayGarden = true;
     this.gardenRows = 3;
     this.gardenCols = 3;
-    this.garden = new MyGarden(this, this.gardenRows, this.gardenCols, 1);
+    this.garden = new MyGarden(this, this.gardenRows, this.gardenCols, 2);
 
 
     // TEST BEE STUFF
@@ -205,14 +207,13 @@ export class MyScene extends CGFscene {
     this.translate(this.bee.position.x, this.bee.position.y, this.bee.position.z);
     this.scale(2 * this.beeScaleFactor, 2 * this.beeScaleFactor, 2 * this.beeScaleFactor);
     this.translate(-this.bee.position.x, -this.bee.position.y, -this.bee.position.z);
-    this.bee.display();
+    // this.bee.display();
     this.popMatrix();
     // bee hive
     this.pushMatrix();
-    this.translate(-20, 0, -20);
-    this.scale(3, 3, 3);
-    this.rotate(45 * Math.PI / 180, 0, 1, 0);
-    this.beeHive.display();
+    this.rotate(Math.PI/2, 0, -1, 0);
+    this.translate(-50, 0, -25);
+    this.hive.display();
     this.popMatrix();
 
     if (this.displayGarden) {
