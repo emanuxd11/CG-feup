@@ -1,11 +1,13 @@
-import {CGFobject} from '../../lib/CGF.js';
+import { CGFobject } from '../../lib/CGF.js';
+
 
 export class MyConcaveCircle extends CGFobject {
   constructor(scene, slices, angle, radius, outside = false) {
     super(scene);
     this.slices = slices;
     this.angle = Math.PI * angle / 180;
-    this.radius = radius/Math.sin(this.angle);
+    this.radius = radius / Math.sin(this.angle);
+    this.height = this.radius * Math.tan(this.angle * Math.PI / 180);
 
     this.direction = 1;
     if (outside) this.direction = -1;

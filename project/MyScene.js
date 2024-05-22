@@ -74,7 +74,7 @@ export class MyScene extends CGFscene {
     // Rocks
     this.displayRockSet = false;
     // Garden parameters
-    this.displayGarden = false;
+    this.displayGarden = true;
     this.gardenRows = 3;
     this.gardenCols = 3;
     this.garden = new MyGarden(this, this.gardenRows, this.gardenCols, 1);
@@ -82,24 +82,13 @@ export class MyScene extends CGFscene {
 
     // TEST BEE STUFF
 
-    this.bee = new MyBee(this, { x: 0, y: 0, z: 0 }, 0, { x: 0, y: 0, z: 0 });
+    this.bee = new MyBee(this, { x: 0, y: 35, z: 0 }, 0, { x: 0, y: 0, z: 0 });
     this.checkSphere = new MySphere(this, 360, 90, 1, true);
-
-    // pollen stuff
-    this.pollenMaterial = new CGFappearance(this);
-    this.pollenMaterial.setAmbient(1, 1, 1, 1.0);
-    this.pollenMaterial.setDiffuse(1, 1, 1, 1.0);
-    this.pollenMaterial.setSpecular(1, 1, 1, 1.0);
-    this.pollenMaterial.setShininess(1.0);
-    this.pollenMaterial.setTexture(new CGFtexture(this, "images/bee/pollen.png"));
-    this.pollenMaterial.setTextureWrap('REPEAT', 'REPEAT');
-    this.pollen = new MyPollen(this, this.pollenMaterial);
 
     // hive
     this.beeHive = new MyHive(this);
 
     // END TEST BEE STUFF
-
 
     // TEST GRASS
     // this.grassLeaf = new MyGrassLeaf(this, 25);
@@ -205,7 +194,6 @@ export class MyScene extends CGFscene {
       this.popMatrix();
     }
 
-
     /* PUT EVERYTHING AT THE SAME HEIGHT IN THE Y AXIS */
     this.pushMatrix();
     this.translate(0, -25, 0);
@@ -215,17 +203,15 @@ export class MyScene extends CGFscene {
     this.pushMatrix();
     this.translate(0, 3, 0);
     this.translate(this.bee.position.x, this.bee.position.y, this.bee.position.z);
-    this.scale(this.beeScaleFactor, this.beeScaleFactor, this.beeScaleFactor);
+    this.scale(2 * this.beeScaleFactor, 2 * this.beeScaleFactor, 2 * this.beeScaleFactor);
     this.translate(-this.bee.position.x, -this.bee.position.y, -this.bee.position.z);
     this.bee.display();
     this.popMatrix();
+    // bee hive
     this.pushMatrix();
-    this.translate(0, 30, 0);
-    this.pollen.display();
-    this.popMatrix();
-
-    this.pushMatrix();
+    this.translate(-20, 0, -20);
     this.scale(3, 3, 3);
+    this.rotate(45 * Math.PI / 180, 0, 1, 0);
     this.beeHive.display();
     this.popMatrix();
 

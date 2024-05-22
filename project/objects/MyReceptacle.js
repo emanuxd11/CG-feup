@@ -1,6 +1,7 @@
 import { CGFobject, CGFappearance } from '../../lib/CGF.js';
 import { MyConcaveCircle } from '../shapes/MyConcaveCircle.js';
 
+
 export class MyReceptacle extends CGFobject {
 
   constructor(scene, radius, color, texture, stemColor, stemTexture, angle) {

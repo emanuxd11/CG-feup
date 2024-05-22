@@ -3,6 +3,8 @@ import { MyRandom } from '../utils/MyRandom.js';
 import { MyStem } from "./MyStem.js";
 import { MyPetal } from "./MyPetal.js";
 import { MyReceptacle } from "./MyReceptacle.js";
+import { MyPollen } from './MyPollen.js';
+
 
 export class MyFlower extends CGFobject {
   static maximumExternalRadius = 7;
@@ -108,6 +110,14 @@ export class MyFlower extends CGFobject {
         this.petalTexture,
       )
     );
+
+    this.initPollenMaterial();
+    this.pollen = new MyPollen(this.scene, this.pollenMaterial);
+    this.pollenPosition = { 
+      x: 0, 
+      y: this.stem.finalY, 
+      z: this.stem.finalZ,
+    };
   }
 
   getRandomExternalRadius() {
@@ -214,13 +224,29 @@ export class MyFlower extends CGFobject {
     return texture;
   }
 
+  initPollenMaterial() {
+    this.pollenMaterial = new CGFappearance(this.scene);
+    this.pollenMaterial.setAmbient(1, 1, 1, 1.0);
+    this.pollenMaterial.setDiffuse(1, 1, 1, 1.0);
+    this.pollenMaterial.setSpecular(1, 1, 1, 1.0);
+    this.pollenMaterial.setShininess(1.0);
+    this.pollenMaterial.setTexture(new CGFtexture(this.scene, "images/bee/pollen.png"));
+    this.pollenMaterial.setTextureWrap('REPEAT', 'REPEAT');
+  }
+
   display() {
     this.stem.display();
 
+    // this.scene.pushMatrix();
+    // this.scene.translate(0, this.stem.finalY, this.stem.finalZ);
+    // this.scene.rotate(this.stem.totalAngle * Math.PI / 180, 1, 0, 0);
+    // this.receptacle.display();
+    // this.scene.popMatrix();
+
     this.scene.pushMatrix();
-    this.scene.translate(0, this.stem.finalY, this.stem.finalZ);
+    this.scene.translate(this.pollenPosition.x, this.pollenPosition.y, this.pollenPosition.z);
     this.scene.rotate(this.stem.totalAngle * Math.PI / 180, 1, 0, 0);
-    this.receptacle.display();
+    this.pollen.display();
     this.scene.popMatrix();
 
     const angleDiff = 2 * Math.PI / this.petalQuant;

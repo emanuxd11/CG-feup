@@ -12,6 +12,9 @@ export class MyBee extends CGFobject {
 	constructor(scene, position={ x: 0, y: 0, z: 0 }, orientation, velocity={ x: 0, y: 0, z: 0 }) {
 		super(scene);
 
+		this.initialPosition = { x: position.x, y: position.y, z: position.z };
+		this.initialVelocity = { x: velocity.x, y: velocity.y, z: velocity.z };
+		this.initialOrientation = orientation;
 		this.position = position;
 		this.velocity = velocity;
 		this.orientation = orientation;
@@ -185,7 +188,7 @@ export class MyBee extends CGFobject {
 	}
 
 	updatePosition(time) {
-		this.position.y = Math.sin(time * 2 * Math.PI) / 4;
+		this.position.y += Math.sin(time * 2 * Math.PI) / 8;
 
 		this.position.x += this.velocity.x * this.speedFactor;
 		this.position.z += this.velocity.z * this.speedFactor;
@@ -210,15 +213,19 @@ export class MyBee extends CGFobject {
 	}
 
 	resetMovement() {
-		this.position.x = 0;
-		this.position.y = 0;
-		this.position.z = 0;
+		this.position.x = this.initialPosition.x;
+		this.position.y = this.initialPosition.y;
+		this.position.z = this.initialPosition.z;
 
-		this.velocity.x = 0;
-		this.velocity.y = 0;
-		this.velocity.z = 0;
+		this.velocity.x = this.initialVelocity.x;
+		this.velocity.y = this.initialVelocity.y;
+		this.velocity.z = this.initialVelocity.z;
 
-		this.orientation = 0;
+		this.orientation = this.initialOrientation;
+	}
+
+	setPollenPositions() {
+		
 	}
 
 }
