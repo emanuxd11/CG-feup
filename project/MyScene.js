@@ -7,6 +7,8 @@ import { MyBee } from "./objects/MyBee.js";
 import { MyGrassField } from "./objects/MyGrassField.js";
 import { MyRockSet } from "./objects/MyRockSet.js";
 import { MyPollen } from "./objects/MyPollen.js";
+import { MyHive } from "./objects/MyHive.js";
+
 
 /**
  * MyScene
@@ -92,6 +94,9 @@ export class MyScene extends CGFscene {
     this.pollenMaterial.setTexture(new CGFtexture(this, "images/bee/pollen.png"));
     this.pollenMaterial.setTextureWrap('REPEAT', 'REPEAT');
     this.pollen = new MyPollen(this, this.pollenMaterial);
+
+    // hive
+    this.beeHive = new MyHive(this);
 
     // END TEST BEE STUFF
 
@@ -217,6 +222,11 @@ export class MyScene extends CGFscene {
     this.pushMatrix();
     this.translate(0, 30, 0);
     this.pollen.display();
+    this.popMatrix();
+
+    this.pushMatrix();
+    this.scale(3, 3, 3);
+    this.beeHive.display();
     this.popMatrix();
 
     if (this.displayGarden) {
