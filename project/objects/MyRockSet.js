@@ -34,7 +34,6 @@ export class MyRockSet extends CGFobject {
                         y0,
                         z0 + i*this.space*Math.sin(Math.PI/3)
                     )
-                    //this.rockTexture.bind();
                     this.appearance.apply();
                     this.rockArray[n].display();
                     this.scene.popMatrix();

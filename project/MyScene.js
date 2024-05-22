@@ -6,6 +6,7 @@ import { MyPanorama } from "./objects/MyPanorama.js";
 import { MyBee } from "./objects/MyBee.js";
 import { MyGrassField } from "./objects/MyGrassField.js";
 import { MyRockSet } from "./objects/MyRockSet.js";
+import { MyHive } from "./objects/MyHive.js";
 
 
 /**
@@ -55,6 +56,8 @@ export class MyScene extends CGFscene {
     // Earth sphere
     // Test sphere
     this.sphere = new MySphere(this, 360, 90, 20, true);
+
+    this.hive = new MyHive(this);
 
     // Objects connected to MyInterface
     this.displayAxis = false;
@@ -227,6 +230,13 @@ export class MyScene extends CGFscene {
       this.rocks.display();
       this.popMatrix();
     }
+
+    //hive
+    this.pushMatrix();
+    this.rotate(Math.PI/2, 0, -1, 0);
+    this.translate(-50, 0, -25);
+    this.hive.display();
+    this.popMatrix();
 
     /* POP MATRIX USED TO PUT EVERYRTHING AT SAME Y AXIS */
     this.popMatrix();
