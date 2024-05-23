@@ -6,9 +6,7 @@ import { MyPanorama } from "./objects/MyPanorama.js";
 import { MyBee } from "./objects/MyBee.js";
 import { MyGrassField } from "./objects/MyGrassField.js";
 import { MyRockSet } from "./objects/MyRockSet.js";
-import { MyPollen } from "./objects/MyPollen.js";
 import { MyHive } from "./objects/MyHive.js";
-import { MyPlank } from "./objects/MyPlank.js";
 
 
 /**
@@ -75,24 +73,19 @@ export class MyScene extends CGFscene {
     // Rocks
     this.displayRockSet = true;
     // Garden parameters
-    this.displayGarden = true;
+    this.displayGarden = false;
     this.gardenRows = 3;
     this.gardenCols = 3;
     this.garden = new MyGarden(this, this.gardenRows, this.gardenCols, 2);
     // Hive
-    this.displayHive = true;
-
-
-    // TEST BEE STUFF
+    this.displayHive = false;
 
     // Hive
     this.hive = new MyHive(this);
 
+    // bee
     this.bee = new MyBee(this, { x: 0, y: 40, z: 0 }, 0, { x: 0, y: 0, z: 0 });
     this.bee.setHive(37, 46, -27);
-    // this.checkSphere = new MySphere(this, 360, 90, 1, true);
-
-    // END TEST BEE STUFF
 
     // Hive Rocks
     this.rockPile1 = new MyRockSet(this, 3, 20, 25);
@@ -100,11 +93,9 @@ export class MyScene extends CGFscene {
     this.rockPile3 = new MyRockSet(this, 1, 30, 10);
     this.rockPile4 = new MyRockSet(this, 2, 5, 9);
 
-    // TEST GRASS
-    // this.grassLeaf = new MyGrassLeaf(this, 25);
+    // grass
     this.grassField = new MyGrassField(this, 50, 50, 2);
     this.displayGrass = false;
-    // END TEST GRASS
 
     this.enableTextures(true);
 
@@ -221,7 +212,6 @@ export class MyScene extends CGFscene {
     this.translate(0, -25, 0);
 
     // display bee
-    // this.checkSphere.display();
     this.pushMatrix();
     this.translate(0, 3, 0);
     this.translate(this.bee.position.x, this.bee.position.y, this.bee.position.z);
