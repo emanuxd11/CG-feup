@@ -73,7 +73,7 @@ export class MyScene extends CGFscene {
     // Plane
     this.displayPlane = true;
     // Rocks
-    this.displayRockSet = false;
+    this.displayRockSet = true;
     // Garden parameters
     this.displayGarden = true;
     this.gardenRows = 3;
@@ -85,17 +85,15 @@ export class MyScene extends CGFscene {
 
     // TEST BEE STUFF
 
-    this.bee = new MyBee(this, { x: 0, y: 35, z: 0 }, 0, { x: 0, y: 0, z: 0 });
-    this.checkSphere = new MySphere(this, 360, 90, 1, true);
+    // Hive
+    this.hive = new MyHive(this);
 
-    // hive
-    this.beeHive = new MyHive(this);
+    this.bee = new MyBee(this, { x: 0, y: 40, z: 0 }, 0, { x: 0, y: 0, z: 0 });
+    this.bee.setHive(37, 46, -27);
+    // this.checkSphere = new MySphere(this, 360, 90, 1, true);
 
     // END TEST BEE STUFF
 
-    // Hive
-    this.hive = new MyHive(this);
-    
     // Hive Rocks
     this.rockPile1 = new MyRockSet(this, 3, 20, 25);
     this.rockPile2 = new MyRockSet(this, 2, 10, 15);
@@ -227,7 +225,7 @@ export class MyScene extends CGFscene {
     this.pushMatrix();
     this.translate(0, 3, 0);
     this.translate(this.bee.position.x, this.bee.position.y, this.bee.position.z);
-    this.scale(2 * this.beeScaleFactor, 2 * this.beeScaleFactor, 2 * this.beeScaleFactor);
+    this.scale(2.5 * this.beeScaleFactor, 2.5 * this.beeScaleFactor, 2.5 * this.beeScaleFactor);
     this.translate(-this.bee.position.x, -this.bee.position.y, -this.bee.position.z);
     this.bee.display();
     this.popMatrix();

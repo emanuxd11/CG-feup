@@ -53,6 +53,7 @@ export class MyBee extends CGFobject {
     this.pollenMaterial.setTextureWrap('REPEAT', 'REPEAT');
 		this.pollen = new MyPollen(this.scene, this.pollenMaterial);
 		this.hasPollen = false;
+		this.isTransporting = false;
 
 		// util for less calculations during display
 		this.cosPI3 = Math.cos(Math.PI / 3);
@@ -260,10 +261,31 @@ export class MyBee extends CGFobject {
 	}
 
 	updatePosition(time) {
-		this.position.y += Math.sin(time * 2 * Math.PI) / 8;
+    this.position.y += Math.sin(time * 2 * Math.PI) / 8;
+
+    if (this.isTransporting) {
+			const distanceThreshold = 10;
+
+			const xWithinRange = Math.abs(this.position.x - this.beeDestCoords.x) <= distanceThreshold;
+			const zWithinRange = this.position.z <= this.beeDestCoords.z;
+
+			if (xWithinRange && zWithinRange) { // pollen carried successfully
+				this.velocity.x = 0;
+				this.velocity.y = 0;
+				this.velocity.z = 0;
+				this.dropPollen();
+				return;
+			}
+    }
 
 		this.position.x += this.velocity.x * this.speedFactor;
-		this.position.z += this.velocity.z * this.speedFactor;
+    this.position.z += this.velocity.z * this.speedFactor;
+	}
+
+	dropPollen() {
+		this.isTransporting = false;
+		this.hasPollen = false;
+		this.scene.hive.addPollen();
 	}
 
 	updateWings(time) {
@@ -304,10 +326,42 @@ export class MyBee extends CGFobject {
 		}
 	}
 
+	setHive(x, y, z) {
+		this.beeDestCoords = { x: x, y: y, z: z };
+	}
+
+	transportToHive() {
+    if (!this.hasPollen) {
+			console.log("There is nothing to transport.");
+			return;
+    }   
+
+    this.flyBackUp();
+
+    this.isTransporting = true;
+
+    const dx = this.position.x - this.beeDestCoords.x;
+    const dz = this.position.z - this.beeDestCoords.z;
+    const angleInRadians = Math.atan2(dz, dx);
+    const angleInDegrees = angleInRadians * (180 / Math.PI);
+    const direction = - angleInDegrees;
+
+    this.setDirection(direction);
+	}
+
 	turn(v) {
 		const magnitude = Math.sqrt(this.velocity.x ** 2 + this.velocity.z ** 2);
 
 		this.orientation += v * this.turnFactor;
+
+		this.velocity.x = magnitude * (-Math.cos(this.orientation * Math.PI / 180));
+		this.velocity.z = magnitude * Math.sin(this.orientation * Math.PI / 180);
+	}
+
+	setDirection(v) {
+		const magnitude = Math.sqrt(this.velocity.x ** 2 + this.velocity.z ** 2);
+
+		this.orientation = v;
 
 		this.velocity.x = magnitude * (-Math.cos(this.orientation * Math.PI / 180));
 		this.velocity.z = magnitude * Math.sin(this.orientation * Math.PI / 180);

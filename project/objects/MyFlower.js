@@ -115,7 +115,7 @@ export class MyFlower extends CGFobject {
     this.pollen = new MyPollen(this.scene, this.pollenMaterial);
     this.pollenPosition = { 
       x: 0, 
-      y: this.stem.finalY, 
+      y: this.stem.finalY + this.receptacle.concaveCircle.height + this.pollen.radius * this.pollen.stretchFactor, 
       z: this.stem.finalZ,
     };
     this.hasPollen = true;
@@ -242,11 +242,11 @@ export class MyFlower extends CGFobject {
   display() {
     this.stem.display();
 
-    // this.scene.pushMatrix();
-    // this.scene.translate(0, this.stem.finalY, this.stem.finalZ);
-    // this.scene.rotate(this.stem.totalAngle * Math.PI / 180, 1, 0, 0);
-    // this.receptacle.display();
-    // this.scene.popMatrix();
+    this.scene.pushMatrix();
+    this.scene.translate(0, this.stem.finalY, this.stem.finalZ);
+    this.scene.rotate(this.stem.totalAngle * Math.PI / 180, 1, 0, 0);
+    this.receptacle.display();
+    this.scene.popMatrix();
 
     if (this.hasPollen) {
       this.scene.pushMatrix();
