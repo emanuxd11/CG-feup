@@ -5,6 +5,7 @@ import { MyBeeThorax } from './MyBeeThorax.js';
 import { MyBeeHead } from './MyBeeHead.js';
 import { MyBeeWing } from './MyBeeWing.js';
 import { MyBeeLeg } from './MyBeeLeg.js';
+import { MyPollen } from './MyPollen.js';
 
 
 export class MyBee extends CGFobject {
@@ -18,6 +19,7 @@ export class MyBee extends CGFobject {
 		this.position = position;
 		this.velocity = velocity;
 		this.orientation = orientation;
+		this.pollenPositions = [];
 
 		// for fine tuning of movement sensitivity
 		this.turnFactor = 10;
@@ -39,8 +41,18 @@ export class MyBee extends CGFobject {
 		this.wing1 = new MyBeeWing(this.scene, 1.5, 0.2, 5, this.wingMaterial);
 		this.wing2 = new MyBeeWing(this.scene, 0.9, 0.15, 3.6, this.wingMaterial);
 
-		this.smallerLeg = new MyBeeLeg(this.scene, null); // add textures !!
+		this.smallerLeg = new MyBeeLeg(this.scene, null);
 		this.longerLeg = new MyBeeLeg(this.scene, null, 6);
+
+		this.pollenMaterial = new CGFappearance(this.scene);
+    this.pollenMaterial.setAmbient(1, 1, 1, 1.0);
+    this.pollenMaterial.setDiffuse(1, 1, 1, 1.0);
+    this.pollenMaterial.setSpecular(1, 1, 1, 1.0);
+    this.pollenMaterial.setShininess(1.0);
+    this.pollenMaterial.setTexture(new CGFtexture(this.scene, "images/bee/pollen.png"));
+    this.pollenMaterial.setTextureWrap('REPEAT', 'REPEAT');
+		this.pollen = new MyPollen(this.scene, this.pollenMaterial);
+		this.hasPollen = false;
 
 		// util for less calculations during display
 		this.cosPI3 = Math.cos(Math.PI / 3);
@@ -86,52 +98,107 @@ export class MyBee extends CGFobject {
 
 		/* LEGS */
 
-		// left side, middle
-		this.scene.pushMatrix();
-		this.scene.rotate(15 * Math.PI / 180, 1, 0, 0);
-		this.scene.translate(0, 0, relLegPosition * 0.95);
-		this.smallerLeg.display();
-		this.scene.popMatrix();
-		
-		// left side, front
-		this.scene.pushMatrix();
-		this.scene.rotate(15 * Math.PI / 180, 1, 0, 0);
-		this.scene.rotate(-30 * Math.PI / 180, 0, 1, 0);
-		this.scene.translate(0, 0, relLegPosition * 0.98);
-		this.smallerLeg.display();
-		this.scene.popMatrix();
+		if (this.hasPollen) {
+			// left side, middle
+			this.scene.pushMatrix();
+			this.scene.rotate(43 * Math.PI / 180, 1, 0, 0);
+			this.scene.translate(0, 0, relLegPosition * 0.95);
+			this.smallerLeg.display();
+			this.scene.popMatrix();
+			
+			// left side, front
+			this.scene.pushMatrix();
+			this.scene.rotate(45 * Math.PI / 180, 1, 0, 0);
+			this.scene.rotate(-20 * Math.PI / 180, 0, 1, 0);
+			this.scene.translate(0, 0, relLegPosition * 0.98);
+			this.smallerLeg.display();
+			this.scene.popMatrix();
 
-		// left side, rear 
-		this.scene.pushMatrix();
-		this.scene.rotate(20 * Math.PI / 180, 1, 0, 0);
-		this.scene.rotate(40 * Math.PI / 180, 0, 1, 0);
-		this.scene.translate(0, 0, relLegPosition);
-		this.longerLeg.display();
-		this.scene.popMatrix();
+			// left side, rear 
+			this.scene.pushMatrix();
+			this.scene.rotate(45 * Math.PI / 180, 1, 0, 0);
+			this.scene.rotate(40 * Math.PI / 180, 0, 1, 0);
+			this.scene.translate(0, 0, relLegPosition);
+			this.longerLeg.display();
+			this.scene.popMatrix();
 
-		// right side, middle
-		this.scene.pushMatrix();
-		this.scene.rotate(-15 * Math.PI / 180, 1, 0, 0);
-		this.scene.rotate(180 * Math.PI / 180, 0, 1, 0);
-		this.scene.translate(0, 0, relLegPosition * 0.95);
-		this.smallerLeg.display();
-		this.scene.popMatrix();
+			// right side, middle
+			this.scene.pushMatrix();
+			this.scene.rotate(-43 * Math.PI / 180, 1, 0, 0);
+			this.scene.rotate(180 * Math.PI / 180, 0, 1, 0);
+			this.scene.translate(0, 0, relLegPosition * 0.95);
+			this.smallerLeg.display();
+			this.scene.popMatrix();
 
-		// right side, front
-		this.scene.pushMatrix();
-		this.scene.rotate(-15 * Math.PI / 180, 1, 0, 0);
-		this.scene.rotate(210 * Math.PI / 180, 0, 1, 0);
-		this.scene.translate(0, 0, relLegPosition * 0.98);
-		this.smallerLeg.display();
-		this.scene.popMatrix();
+			// right side, front
+			this.scene.pushMatrix();
+			this.scene.rotate(-45 * Math.PI / 180, 1, 0, 0);
+			this.scene.rotate(200 * Math.PI / 180, 0, 1, 0);
+			this.scene.translate(0, 0, relLegPosition * 0.98);
+			this.smallerLeg.display();
+			this.scene.popMatrix();
 
-		// right side, rear 
-		this.scene.pushMatrix();
-		this.scene.rotate(-20 * Math.PI / 180, 1, 0, 0);
-		this.scene.rotate(140 * Math.PI / 180, 0, 1, 0);
-		this.scene.translate(0, 0, relLegPosition);
-		this.longerLeg.display();
-		this.scene.popMatrix();
+			// right side, rear 
+			this.scene.pushMatrix();
+			this.scene.rotate(-45 * Math.PI / 180, 1, 0, 0);
+			this.scene.rotate(140 * Math.PI / 180, 0, 1, 0);
+			this.scene.translate(0, 0, relLegPosition);
+			this.longerLeg.display();
+			this.scene.popMatrix();
+
+			// pollen
+			this.scene.pushMatrix();
+			this.scene.translate(0, -this.thorax.radius - this.pollen.radius, 0);
+			this.pollen.display();
+			this.scene.popMatrix();
+		} else {
+			// left side, middle
+			this.scene.pushMatrix();
+			this.scene.rotate(15 * Math.PI / 180, 1, 0, 0);
+			this.scene.translate(0, 0, relLegPosition * 0.95);
+			this.smallerLeg.display();
+			this.scene.popMatrix();
+			
+			// left side, front
+			this.scene.pushMatrix();
+			this.scene.rotate(15 * Math.PI / 180, 1, 0, 0);
+			this.scene.rotate(-30 * Math.PI / 180, 0, 1, 0);
+			this.scene.translate(0, 0, relLegPosition * 0.98);
+			this.smallerLeg.display();
+			this.scene.popMatrix();
+
+			// left side, rear 
+			this.scene.pushMatrix();
+			this.scene.rotate(20 * Math.PI / 180, 1, 0, 0);
+			this.scene.rotate(40 * Math.PI / 180, 0, 1, 0);
+			this.scene.translate(0, 0, relLegPosition);
+			this.longerLeg.display();
+			this.scene.popMatrix();
+
+			// right side, middle
+			this.scene.pushMatrix();
+			this.scene.rotate(-15 * Math.PI / 180, 1, 0, 0);
+			this.scene.rotate(180 * Math.PI / 180, 0, 1, 0);
+			this.scene.translate(0, 0, relLegPosition * 0.95);
+			this.smallerLeg.display();
+			this.scene.popMatrix();
+
+			// right side, front
+			this.scene.pushMatrix();
+			this.scene.rotate(-15 * Math.PI / 180, 1, 0, 0);
+			this.scene.rotate(210 * Math.PI / 180, 0, 1, 0);
+			this.scene.translate(0, 0, relLegPosition * 0.98);
+			this.smallerLeg.display();
+			this.scene.popMatrix();
+
+			// right side, rear 
+			this.scene.pushMatrix();
+			this.scene.rotate(-20 * Math.PI / 180, 1, 0, 0);
+			this.scene.rotate(140 * Math.PI / 180, 0, 1, 0);
+			this.scene.translate(0, 0, relLegPosition);
+			this.longerLeg.display();
+			this.scene.popMatrix();
+		}
 
 
 		/* WINGS */
@@ -182,9 +249,14 @@ export class MyBee extends CGFobject {
 		this.scene.popMatrix();
 	}
 
-	update(time) {
+	update(time, pollenPositions) {
     this.updatePosition(time);
     this.updateWings(time);
+		this.updatePollenPositions(pollenPositions);
+	}
+	
+	updatePollenPositions(pollenPositions) {
+		this.pollenPositions = pollenPositions;
 	}
 
 	updatePosition(time) {
@@ -196,6 +268,40 @@ export class MyBee extends CGFobject {
 
 	updateWings(time) {
 		this.wingMovAngle = (30 * Math.PI / 180) * Math.sin(time * 14 * Math.PI) + 0 * Math.PI / 180;
+	}
+	
+	grabPollen() {
+		const flowerIdx = this.checkPollenProximity();
+		if (flowerIdx == undefined) {
+			console.log(`Bee is not within 4.5 units of any pollen at (${this.position.x}, ${this.position.z})`);
+			return;
+		}	
+
+		this.scene.garden.flowers[flowerIdx.row][flowerIdx.column].removePollen();
+		this.hasPollen = true;
+		this.position.y = this.pollenPositions[flowerIdx.row][flowerIdx.column].y + 1;
+	}
+
+	flyBackUp() {
+		this.position.y = this.initialPosition.y;
+	}
+
+	checkPollenProximity() {
+		for (let i = 0; i < this.pollenPositions.length; i++) {
+			for (let j = 0; j < this.pollenPositions[i].length; j++) {
+				const pollenX = this.pollenPositions[i][j].x;
+				const pollenZ = this.pollenPositions[i][j].z;
+				const beeX = this.position.x;
+				const beeZ = this.position.z;
+
+				const distance = Math.sqrt((beeX - pollenX) ** 2 + (beeZ - pollenZ) ** 2);
+
+				if (distance <= 4.5) {
+					console.log(`Bee is within 4.5 units of pollen at (${pollenX}, ${pollenZ})`);
+					return { row: i, column: j };
+				} 			
+			}
+		}
 	}
 
 	turn(v) {
@@ -222,10 +328,6 @@ export class MyBee extends CGFobject {
 		this.velocity.z = this.initialVelocity.z;
 
 		this.orientation = this.initialOrientation;
-	}
-
-	setPollenPositions() {
-		
 	}
 
 }

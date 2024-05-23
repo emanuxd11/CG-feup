@@ -160,6 +160,18 @@ export class MyScene extends CGFscene {
     if (this.gui.isKeyPressed('KeyR')) {
       this.bee.resetMovement();
     }
+
+    if (this.gui.isKeyPressed('KeyF')) {
+      this.bee.grabPollen();
+    }
+
+    if (this.gui.isKeyPressed('KeyP')) {
+      this.bee.flyBackUp();
+    }
+
+    if (this.gui.isKeyPressed('KeyO')) {
+      this.bee.transportToHive();
+    }
   }
 
   display() {
@@ -207,7 +219,7 @@ export class MyScene extends CGFscene {
     this.translate(this.bee.position.x, this.bee.position.y, this.bee.position.z);
     this.scale(2 * this.beeScaleFactor, 2 * this.beeScaleFactor, 2 * this.beeScaleFactor);
     this.translate(-this.bee.position.x, -this.bee.position.y, -this.bee.position.z);
-    // this.bee.display();
+    this.bee.display();
     this.popMatrix();
     // bee hive
     this.pushMatrix();
@@ -251,7 +263,7 @@ export class MyScene extends CGFscene {
   update(time) {
     const elapsed = (time - this.startTime) / 1000;
     this.checkKeys();
-    this.bee.update(elapsed);
+    this.bee.update(elapsed, this.garden.getPollenPositions());
     this.grassField.update(elapsed);
   }
 }

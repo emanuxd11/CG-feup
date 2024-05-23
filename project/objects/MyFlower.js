@@ -118,6 +118,7 @@ export class MyFlower extends CGFobject {
       y: this.stem.finalY, 
       z: this.stem.finalZ,
     };
+    this.hasPollen = true;
   }
 
   getRandomExternalRadius() {
@@ -234,6 +235,10 @@ export class MyFlower extends CGFobject {
     this.pollenMaterial.setTextureWrap('REPEAT', 'REPEAT');
   }
 
+  removePollen() {
+    this.hasPollen = false;
+  }
+
   display() {
     this.stem.display();
 
@@ -243,11 +248,13 @@ export class MyFlower extends CGFobject {
     // this.receptacle.display();
     // this.scene.popMatrix();
 
-    this.scene.pushMatrix();
-    this.scene.translate(this.pollenPosition.x, this.pollenPosition.y, this.pollenPosition.z);
-    this.scene.rotate(this.stem.totalAngle * Math.PI / 180, 1, 0, 0);
-    this.pollen.display();
-    this.scene.popMatrix();
+    if (this.hasPollen) {
+      this.scene.pushMatrix();
+      this.scene.translate(this.pollenPosition.x, this.pollenPosition.y, this.pollenPosition.z);
+      this.scene.rotate(this.stem.totalAngle * Math.PI / 180, 1, 0, 0);
+      this.pollen.display();
+      this.scene.popMatrix();
+    }
 
     const angleDiff = 2 * Math.PI / this.petalQuant;
     let currentAngle = 0;
