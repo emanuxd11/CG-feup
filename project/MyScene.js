@@ -73,12 +73,12 @@ export class MyScene extends CGFscene {
     // Rocks
     this.displayRockSet = true;
     // Garden parameters
-    this.displayGarden = false;
+    this.displayGarden = true;
     this.gardenRows = 3;
     this.gardenCols = 3;
     this.garden = new MyGarden(this, this.gardenRows, this.gardenCols, 2);
     // Hive
-    this.displayHive = false;
+    this.displayHive = true;
 
     // Hive
     this.hive = new MyHive(this);
@@ -95,7 +95,7 @@ export class MyScene extends CGFscene {
 
     // grass
     this.grassField = new MyGrassField(this, 50, 50, 2);
-    this.displayGrass = false;
+    this.displayGrass = true;
 
     this.enableTextures(true);
 
