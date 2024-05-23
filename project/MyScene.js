@@ -7,6 +7,7 @@ import { MyBee } from "./objects/MyBee.js";
 import { MyGrassField } from "./objects/MyGrassField.js";
 import { MyRockSet } from "./objects/MyRockSet.js";
 import { MyHive } from "./objects/MyHive.js";
+import { MyPlank } from "./objects/MyPlank.js";
 
 
 /**
@@ -57,8 +58,6 @@ export class MyScene extends CGFscene {
     // Test sphere
     this.sphere = new MySphere(this, 360, 90, 20, true);
 
-    this.hive = new MyHive(this);
-
     // Objects connected to MyInterface
     this.displayAxis = false;
     this.beeScaleFactor = 1;
@@ -79,11 +78,22 @@ export class MyScene extends CGFscene {
     this.gardenRows = 3;
     this.gardenCols = 3;
     this.garden = new MyGarden(this, this.gardenRows, this.gardenCols, 2);
+    // Hive
+    this.displayHive = false;
 
     // TEST BEE STUFF
     this.bee = new MyBee(this, { x: 0, y: 0, z: 0 }, 0, { x: 0, y: 0, z: 0 });
     this.checkSphere = new MySphere(this, 360, 90, 1, true);
     // END TEST BEE STUFF
+
+    // Hive
+    this.hive = new MyHive(this);
+    
+    // Hive Rocks
+    this.rockPile1 = new MyRockSet(this, 3, 20, 25);
+    this.rockPile2 = new MyRockSet(this, 2, 10, 15);
+    this.rockPile3 = new MyRockSet(this, 1, 30, 10);
+    this.rockPile4 = new MyRockSet(this, 2, 5, 9);
 
     // TEST GRASS
     // this.grassLeaf = new MyGrassLeaf(this, 25);
@@ -210,6 +220,7 @@ export class MyScene extends CGFscene {
     }
 
     if (this.displayGrass) {
+      //grass
       this.setActiveShader(this.grassField.grassShader);
       this.grassField.display();
       this.setActiveShader(this.defaultShader);
@@ -226,17 +237,44 @@ export class MyScene extends CGFscene {
 
     if (this.displayRockSet) {
       this.pushMatrix();
-      this.translate(-50, 0, -10);
+      this.translate(-50, 0, 40);
       this.rocks.display();
       this.popMatrix();
     }
 
-    //hive
-    this.pushMatrix();
-    this.rotate(Math.PI/2, 0, -1, 0);
-    this.translate(-50, 0, -25);
-    this.hive.display();
-    this.popMatrix();
+    if (this.displayHive) {
+      //hive
+      this.pushMatrix();
+      this.rotate(Math.PI/2, 0, -1, 0);
+      this.translate(-50, 15, -40);
+      this.hive.display();
+      this.popMatrix();
+
+      //hive rocks
+      this.pushMatrix();
+      this.rotate(Math.PI/2, 0.4, -1, 0.3);
+      this.translate(-80, -10, -15);
+      this.rockPile1.display();
+      this.popMatrix();
+
+      this.pushMatrix();
+      this.rotate(Math.PI, 0, 0, 0);
+      this.translate(55, 0, -80);
+      this.rockPile2.display();
+      this.popMatrix();
+
+      this.pushMatrix();
+      this.rotate(Math.PI, 0, 0, 0);
+      this.translate(60, -10, -30);
+      this.rockPile3.display();
+      this.popMatrix();
+
+      this.pushMatrix();
+      this.rotate(Math.PI, 0, 0, 0);
+      this.translate(20, 65, -65);
+      this.rockPile4.display();
+      this.popMatrix();
+    }
 
     /* POP MATRIX USED TO PUT EVERYRTHING AT SAME Y AXIS */
     this.popMatrix();

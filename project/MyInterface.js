@@ -41,6 +41,9 @@ export class MyInterface extends CGFinterface {
     // Checkbox element in GUI for Garden
     this.gui.add(this.scene, 'displayGarden').name('Display Garden');
 
+    // Checkbox element in GUI for Hive
+    this.gui.add(this.scene, 'displayHive').name('Display Hive');
+
     // Checkbox element in GUI for Grass
     this.gui.add(this.scene, 'displayGrass').name('Display Grass');
 
